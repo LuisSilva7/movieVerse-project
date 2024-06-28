@@ -39,3 +39,17 @@
     font-size: 1.3rem;
   }
 }
+
+@media (max-width: 400px) {
+  .hero {
+    padding-top: 350px;
+  }
+
+  .hero-slogan {
+    font-size: 1.2rem;
+  }
+
+  .hero-welcome {
+    font-size: 1rem;
+  }
+}
