@@ -168,13 +168,13 @@
 
 @media (max-width: 400px) {
   .products-table-wrapper h1 {
-    margin-top: 1.5rem;
+    margin-top: 5rem;
     margin-bottom: 2rem;
     font-size: 1.7rem;
   }
 
   .image-wrapper {
-    height: 140px;
+    height: 90px;
   }
 
   .products-table-top span {
