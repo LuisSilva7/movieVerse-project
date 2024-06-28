@@ -175,3 +175,33 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+@media (max-width: 400px) {
+  .products-list-wrapper {
+    margin-top: 90px;
+  }
+
+  .category-filter hr {
+    width: 95%;
+  }
+
+  .filter-words {
+    column-gap: 0.4rem;
+    font-size: 0.6rem;
+  }
+
+  .products-sort-by .category-name h2 {
+    font-size: 1.4rem;
+  }
+
+  .products-sort-by .sort-by span {
+    font-size: 0.9rem;
+    margin-right: 0.7rem;
+  }
+
+  .products-sort-by .sort-by select {
+    width: 6rem;
+    font-size: 0.9rem;
+    padding: 0;
+  }
+}
