@@ -38,7 +38,14 @@ const ProductsTable = () => {
       let newCartMovies = cartMoviesId.filter((m) => m != movieId);
       localStorage.setItem("cartMovies", JSON.stringify(newCartMovies));
 
-      setCartMovies([]);
+      if (localStorage.getItem("cartMovies")) {
+        const cartMoviesId = JSON.parse(localStorage.getItem("cartMovies"));
+        const filteredCartMovies = movies.filter((movie) =>
+          cartMoviesId.includes(movie.id)
+        );
+
+        setCartMovies(filteredCartMovies);
+      }
     }
   };
 
