@@ -9,7 +9,7 @@ const Hero = () => {
           Explore the World of Films: Where Every Scene Tells a Story!
         </h1>
         <hr className={styles["hero-line"]} />
-        <h3 className={styles["hero-welcome"]}>Welcome to MovieVerse</h3>
+        <h3 className={styles["hero-welcome"]}>Welcome to MovieVerseee</h3>
       </div>
     </div>
   );
