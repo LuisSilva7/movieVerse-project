@@ -90,3 +90,14 @@
     margin-bottom: 3rem;
   }
 }
+
+@media (max-width: 400px) {
+  .upper-text-wrapper {
+    width: 90%;
+  }
+
+  .upper-text-wrapper h1 {
+    font-size: 1.8rem;
+    letter-spacing: 0.8rem;
+  }
+}
