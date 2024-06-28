@@ -70,3 +70,21 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+@media (max-width: 1200px) {
+  .products-grid {
+    width: 95%;
+    row-gap: 2rem;
+  }
+
+  .suggestions-wrapper {
+    padding-left: 2rem;
+  }
+
+  .producs-grid-item h5 {
+    font-size: 0.9rem;
+  }
+  .producs-grid-item h6 {
+    font-size: 0.8rem;
+  }
+}

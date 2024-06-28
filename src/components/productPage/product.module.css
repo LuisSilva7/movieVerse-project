@@ -148,3 +148,41 @@
     font-size: 0.7rem;
   }
 }
+
+@media (max-width: 400px) {
+  .product-wrapper {
+    margin-top: 90px;
+    padding-bottom: 2rem;
+  }
+
+  .product-wrapper img {
+    height: 250px;
+    width: 150px;
+  }
+
+  .movie-info {
+    height: 250px;
+  }
+
+  .movie-info h1 {
+    font-size: 1.8rem;
+  }
+
+  .movie-info p {
+    font-size: 0.7rem;
+    line-height: 1.6;
+  }
+
+  .movie-info p span {
+    margin-left: 0.8rem;
+  }
+
+  .info-bottom-section p {
+    font-size: 0.7rem;
+  }
+
+  .info-bottom-section button {
+    height: 30px;
+    font-size: 0.6rem;
+  }
+}
