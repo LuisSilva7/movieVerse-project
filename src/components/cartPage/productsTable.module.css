@@ -173,6 +173,10 @@
     font-size: 1.7rem;
   }
 
+  .image-wrapper {
+    height: 140px;
+  }
+
   .products-table-top span {
     margin-bottom: 0.2rem;
   }
