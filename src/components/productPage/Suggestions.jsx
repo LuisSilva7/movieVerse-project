@@ -1,22 +1,41 @@
 import React from "react";
 import styles from "./suggestions.module.css";
-import movies from "../../../movies.json";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Suggestions = () => {
+  const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
   const { id } = useParams();
-  const movie = movies.find((m) => m.id == id);
-  const moviesByCategory = movies
-    .filter((m1) => m1.name != movie.name)
-    .filter((m2) => m2.type == movie.type)
-    .slice(0, 4);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch(`/api/v1/movies/suggestion/${id}`, {
+          method: "GET",
+        });
+
+        if (!response.ok) {
+          throw new Error("Error fetching movies.");
+        }
+
+        const data = await response.json();
+        setMovies(data.data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchMovies();
+  }, []);
 
   return (
     <div className={styles["suggestions-wrapper"]}>
       <h4>You may also like</h4>
       <div className={styles["products-grid"]}>
-        {moviesByCategory.map((movie) => (
+        {error && <p>{error}</p>}
+        {movies.map((movie) => (
           <div key={movie.id} className={styles["producs-grid-item"]}>
             <Link to={`/products/${movie.id}`}>
               <img
