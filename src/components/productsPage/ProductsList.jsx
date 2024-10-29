@@ -1,13 +1,76 @@
 import React from "react";
 import styles from "./productsList.module.css";
-import movies from "../../../movies.json";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdArrowForwardIos } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const MovieList = () => {
+  const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
   const [categoryFilter, setCategoryFilter] = useState("All Movies");
   const [sortByFilter, setSortByFilter] = useState("Featured");
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch("/api/v1/movies/all", {
+          method: "GET",
+        });
+
+        if (!response.ok) {
+          throw new Error("Error fetching movies.");
+        }
+
+        const data = await response.json();
+        setMovies(data.data);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchMovies();
+  }, []);
+
+  // Função que busca filmes de acordo com a categoria
+  const fetchMoviesByCategory = async (category) => {
+    if (category === "All Movies") {
+      try {
+        const response = await fetch("/api/v1/movies/all", {
+          method: "GET",
+        });
+
+        if (!response.ok) {
+          throw new Error("Error fetching movies.");
+        }
+
+        const data = await response.json();
+        setMovies(data.data);
+      } catch (error) {
+        setError(error.message);
+      }
+    } else {
+      try {
+        const response = await fetch(`/api/v1/movies/${category}`, {
+          method: "GET",
+        });
+
+        if (!response.ok) {
+          throw new Error("Error fetching movies.");
+        }
+
+        const data = await response.json();
+        setMovies(data.data);
+      } catch (error) {
+        setError(error.message);
+      }
+    }
+  };
+
+  // Função que é chamada ao clicar em uma categoria
+  const handleCategoryClick = (category) => {
+    setCategoryFilter(category); // Atualiza a categoria selecionada
+    fetchMoviesByCategory(category); // Busca filmes da nova categoria
+  };
 
   const handleSorByFilterChange = (event) => {
     setSortByFilter(event.target.value);
@@ -19,7 +82,7 @@ const MovieList = () => {
         <hr />
         <div className={styles["filter-words"]}>
           <span
-            onClick={() => setCategoryFilter("All Movies")}
+            onClick={() => handleCategoryClick("All Movies")}
             className={
               categoryFilter === "All Movies" ? styles["word-selected"] : ""
             }
@@ -27,7 +90,7 @@ const MovieList = () => {
             ALL MOVIES
           </span>
           <span
-            onClick={() => setCategoryFilter("Action")}
+            onClick={() => handleCategoryClick("Action")}
             className={
               categoryFilter === "Action" ? styles["word-selected"] : ""
             }
@@ -35,7 +98,7 @@ const MovieList = () => {
             ACTION
           </span>
           <span
-            onClick={() => setCategoryFilter("Comedy")}
+            onClick={() => handleCategoryClick("Comedy")}
             className={
               categoryFilter === "Comedy" ? styles["word-selected"] : ""
             }
@@ -43,7 +106,7 @@ const MovieList = () => {
             COMEDY
           </span>
           <span
-            onClick={() => setCategoryFilter("Horror")}
+            onClick={() => handleCategoryClick("Horror")}
             className={
               categoryFilter === "Horror" ? styles["word-selected"] : ""
             }
@@ -51,7 +114,7 @@ const MovieList = () => {
             HORROR
           </span>
           <span
-            onClick={() => setCategoryFilter("Nostalgic")}
+            onClick={() => handleCategoryClick("Nostalgic")}
             className={
               categoryFilter === "Nostalgic" ? styles["word-selected"] : ""
             }
@@ -59,7 +122,7 @@ const MovieList = () => {
             NOSTALGIC
           </span>
           <span
-            onClick={() => setCategoryFilter("Romance")}
+            onClick={() => handleCategoryClick("Romance")}
             className={
               categoryFilter === "Romance" ? styles["word-selected"] : ""
             }
@@ -67,7 +130,7 @@ const MovieList = () => {
             ROMANCE
           </span>
           <span
-            onClick={() => setCategoryFilter("War")}
+            onClick={() => handleCategoryClick("War")}
             className={categoryFilter === "War" ? styles["word-selected"] : ""}
           >
             WAR
@@ -77,7 +140,9 @@ const MovieList = () => {
       </div>
 
       <div className={styles["category-path"]}>
-        <span onClick={() => setCategoryFilter("All Movies")}>All Movies</span>
+        <span onClick={() => handleCategoryClick("All Movies")}>
+          All Movies
+        </span>
         {categoryFilter === "All Movies" ? (
           ""
         ) : (
@@ -101,6 +166,7 @@ const MovieList = () => {
           </select>
         </div>
       </div>
+      {error && <p>{error}</p>}
       <div className={styles["products-grid"]}>
         {categoryFilter === "All Movies" && sortByFilter === "Featured"
           ? movies.map((movie) => (
@@ -146,23 +212,20 @@ const MovieList = () => {
                 </div>
               ))
           : categoryFilter !== "All Movies" && sortByFilter === "Featured"
-          ? movies
-              .filter((movie) => movie.type === categoryFilter)
-              .map((movie) => (
-                <div key={movie.id} className={styles["producs-grid-item"]}>
-                  <Link to={`/products/${movie.id}`}>
-                    <img
-                      src={`../../../movies-thumb/${movie.image}`}
-                      alt={movie.name}
-                    />
-                  </Link>
-                  <h5>{movie.name}</h5>
-                  <h6>{movie.price} €</h6>
-                </div>
-              ))
+          ? movies.map((movie) => (
+              <div key={movie.id} className={styles["producs-grid-item"]}>
+                <Link to={`/products/${movie.id}`}>
+                  <img
+                    src={`../../../movies-thumb/${movie.image}`}
+                    alt={movie.name}
+                  />
+                </Link>
+                <h5>{movie.name}</h5>
+                <h6>{movie.price} €</h6>
+              </div>
+            ))
           : categoryFilter !== "All Movies" && sortByFilter === "Low-high"
           ? movies
-              .filter((movie) => movie.type === categoryFilter)
               .sort((a, b) => a.price - b.price)
               .map((movie) => (
                 <div key={movie.id} className={styles["producs-grid-item"]}>
@@ -177,7 +240,6 @@ const MovieList = () => {
                 </div>
               ))
           : movies
-              .filter((movie) => movie.type === categoryFilter)
               .sort((a, b) => b.price - a.price)
               .map((movie) => (
                 <div key={movie.id} className={styles["producs-grid-item"]}>

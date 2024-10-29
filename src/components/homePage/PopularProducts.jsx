@@ -9,12 +9,9 @@ const PopularProducts = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:8080/api/v1/movies/popular",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch("/api/v1/movies/popular", {
+          method: "GET",
+        });
 
         if (!response.ok) {
           throw new Error("Error fetching movies.");
