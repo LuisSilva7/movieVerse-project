@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+.info-wrapper {
+  padding-top: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 6rem;
+  background-color: rgb(255, 249, 251);
+}
+
+.upper-text-wrapper {
+  padding-top: 6rem;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.upper-text-wrapper h1 {
+  letter-spacing: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.upper-text-wrapper h4 {
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  font-weight: bolder;
+}
+
+.upper-text-wrapper hr {
+  width: 40%;
+  margin-bottom: 3rem;
+}
+
+.bottom-text-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.selection-icon,
+.benefits-icon,
+.experience-icon {
+  font-size: 5rem;
+  padding-bottom: 1.2rem;
+}
+
+.selection-wrapper,
+.benefits-wrapper,
+.experience-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.selection-wrapper h3,
+.benefits-wrapper h3,
+.experience-wrapper h3 {
+  font-size: 1.7rem;
+  margin-bottom: 1.5rem;
+}
+
+.selection-wrapper p,
+.benefits-wrapper p,
+.experience-wrapper p {
+  width: 80%;
+  font-family: "Open Sans", sans-serif;
+  color: rgb(76, 76, 76);
+}
+
+@media (max-width: 900px) {
+  .upper-text-wrapper h1 {
+    font-size: 2rem;
+    letter-spacing: 0.9rem;
+  }
+
+  .upper-text-wrapper h4 {
+    font-size: 0.7rem;
+  }
+
+  .bottom-text-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .selection-wrapper p,
+  .benefits-wrapper p,
+  .experience-wrapper p {
+    margin-bottom: 3rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .info-wrapper {
+    padding-top: 90px;
+  }
+
+  .upper-text-wrapper {
+    width: 90%;
+  }
+
+  .upper-text-wrapper h1 {
+    font-size: 1.8rem;
+    letter-spacing: 0.8rem;
+  }
+}

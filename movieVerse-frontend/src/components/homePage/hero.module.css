@@ -1,0 +1,55 @@
+.hero-wrapper {
+  height: 1000px;
+  background-image: url("../../assets/images/hero-background.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.hero {
+  padding-top: 400px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-slogan {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-line {
+  width: 30%;
+  margin-bottom: 1.5rem;
+}
+
+.hero-welcome {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 1000px) {
+  .hero-slogan {
+    font-size: 2rem;
+  }
+
+  .hero-welcome {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero {
+    padding-top: 350px;
+  }
+
+  .hero-slogan {
+    font-size: 1.2rem;
+  }
+
+  .hero-welcome {
+    font-size: 1rem;
+  }
+}
