@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.movieverse.movieverse_backend.entity.Cart;
 import org.movieverse.movieverse_backend.entity.User;
 import org.movieverse.movieverse_backend.exception.ResourceAlreadyExistsException;
+import org.movieverse.movieverse_backend.exception.ResourceNotFoundException;
 import org.movieverse.movieverse_backend.repository.UserRepository;
 import org.movieverse.movieverse_backend.response.LoginResponse;
 import org.movieverse.movieverse_backend.response.RegisterUserResponse;
@@ -45,11 +46,11 @@ public class UserServiceImpl implements UserService {
     }
 
     public LoginResponse login(String username, String password) {
+        Optional<User> user = Optional.ofNullable(userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User with username " + username + " not found!")));
 
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if(user.isEmpty() || !user.get().isLoginCorrect(password, bCryptPasswordEncoder)) {
-            throw new BadCredentialsException("Username or password are invalid!");
+        if(!user.get().isLoginCorrect(password, bCryptPasswordEncoder)) {
+            throw new BadCredentialsException("Username and password don´t match!");
         }
 
         var now = Instant.now();
