@@ -2,10 +2,10 @@ package org.movieverse.movieverse_backend.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.movieverse.movieverse_backend.dto.MovieDto;
-import org.movieverse.movieverse_backend.model.Movie;
-import org.movieverse.movieverse_backend.response.ApiResponse;
-import org.movieverse.movieverse_backend.service.cart.CartService;
-import org.movieverse.movieverse_backend.service.movie.MovieService;
+import org.movieverse.movieverse_backend.entity.Movie;
+import org.movieverse.movieverse_backend.response.ApiResponsee;
+import org.movieverse.movieverse_backend.service.cart.CartServiceImpl;
+import org.movieverse.movieverse_backend.service.movie.MovieServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
@@ -20,34 +20,35 @@ import java.util.List;
 @CrossOrigin
 public class CartController {
 
-    private final CartService cartService;
-    private final MovieService movieService;
+    private final CartServiceImpl cartServiceImpl;
+    private final MovieServiceImpl movieServiceImpl;
 
     @GetMapping("/get-movies")
-    public ResponseEntity<ApiResponse> getAllCartMovies(JwtAuthenticationToken token) {
-        List<Movie> movies = cartService.getAllCartMovies(token);
-        List<MovieDto> convertedMovies = movieService.getConvertedMovies(movies);
-        return ResponseEntity.ok(new ApiResponse("Success!", convertedMovies));
+    public ResponseEntity<ApiResponsee> getAllCartMovies(JwtAuthenticationToken token) {
+        List<Movie> movies = cartServiceImpl.getAllCartMovies(token);
+        //List<MovieDto> convertedMovies = movieServiceImpl.getConvertedMovies(movies);
+        List<MovieDto> convertedMovies = null;
+        return ResponseEntity.ok(new ApiResponsee("Success!", convertedMovies));
     }
 
     @GetMapping("/totalAmount")
-    public ResponseEntity<ApiResponse> getCartTotalAmount(JwtAuthenticationToken token) {
-        BigDecimal totalAmount = cartService.getCartTotalAmount(token);
-        return ResponseEntity.ok(new ApiResponse("Success!", totalAmount));
+    public ResponseEntity<ApiResponsee> getCartTotalAmount(JwtAuthenticationToken token) {
+        BigDecimal totalAmount = cartServiceImpl.getCartTotalAmount(token);
+        return ResponseEntity.ok(new ApiResponsee("Success!", totalAmount));
     }
 
     @PostMapping("/add-movie/{movieId}")
-    public ResponseEntity<ApiResponse> addMovie(@PathVariable Long movieId, JwtAuthenticationToken token) {
-        String response = cartService.addMovie(movieId, token);
+    public ResponseEntity<ApiResponsee> addMovie(@PathVariable Long movieId, JwtAuthenticationToken token) {
+        String response = cartServiceImpl.addMovie(movieId, token);
 
-        return ResponseEntity.ok(new ApiResponse(response, null));
+        return ResponseEntity.ok(new ApiResponsee(response, null));
     }
 
     @DeleteMapping("/remove-movie/{movieId}")
-    public ResponseEntity<ApiResponse> removeMovie(@PathVariable Long movieId, JwtAuthenticationToken token) {
+    public ResponseEntity<ApiResponsee> removeMovie(@PathVariable Long movieId, JwtAuthenticationToken token) {
 
-        String response = cartService.removeMovie(movieId, token);
+        String response = cartServiceImpl.removeMovie(movieId, token);
 
-        return ResponseEntity.ok(new ApiResponse(response, null));
+        return ResponseEntity.ok(new ApiResponsee(response, null));
     }
 }

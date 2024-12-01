@@ -1,6 +1,6 @@
 package org.movieverse.movieverse_backend.repository;
 
-import org.movieverse.movieverse_backend.model.Movie;
+import org.movieverse.movieverse_backend.entity.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

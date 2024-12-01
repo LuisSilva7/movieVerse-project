@@ -1,8 +1,8 @@
 package org.movieverse.movieverse_backend.config;
 
 import lombok.RequiredArgsConstructor;
-import org.movieverse.movieverse_backend.model.Cart;
-import org.movieverse.movieverse_backend.model.User;
+import org.movieverse.movieverse_backend.entity.Cart;
+import org.movieverse.movieverse_backend.entity.User;
 import org.movieverse.movieverse_backend.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ public class AdminUserConfig implements CommandLineRunner {
 
     @Override
     @Transactional
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         Optional<User> userAdmin = userRepository.findByUsername("admin");
 
         userAdmin.ifPresentOrElse(
@@ -29,7 +29,7 @@ public class AdminUserConfig implements CommandLineRunner {
                 () -> {
                     User user = new User();
                     user.setUsername("admin");
-                    user.setPassword(bCryptPasswordEncoder.encode("123"));
+                    user.setPassword(bCryptPasswordEncoder.encode("12345"));
 
                     Cart cart = new Cart();
                     user.setCart(cart);

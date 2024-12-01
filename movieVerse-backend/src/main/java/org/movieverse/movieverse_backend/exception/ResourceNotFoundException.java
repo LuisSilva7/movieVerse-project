@@ -1,4 +1,4 @@
-package org.movieverse.movieverse_backend.exceptions;
+package org.movieverse.movieverse_backend.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message) {

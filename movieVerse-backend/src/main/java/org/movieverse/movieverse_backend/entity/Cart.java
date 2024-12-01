@@ -1,8 +1,7 @@
-package org.movieverse.movieverse_backend.model;
+package org.movieverse.movieverse_backend.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -10,13 +9,20 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
+@Table(name = "cart")
 public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    private BigDecimal totalAmount = BigDecimal.ZERO;
+
+    @Column(name = "total_amount")
+    private BigDecimal totalAmount;
 
     @ManyToMany
     @JoinTable(name="cart_movie",

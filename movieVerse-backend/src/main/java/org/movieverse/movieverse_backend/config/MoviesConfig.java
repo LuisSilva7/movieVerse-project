@@ -1,7 +1,7 @@
 package org.movieverse.movieverse_backend.config;
 
 import lombok.RequiredArgsConstructor;
-import org.movieverse.movieverse_backend.model.Movie;
+import org.movieverse.movieverse_backend.entity.Movie;
 import org.movieverse.movieverse_backend.repository.MovieRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ public class MoviesConfig implements CommandLineRunner {
 
     @Override
     @Transactional
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         Optional<Movie> movieFromBd = movieRepository.findById(1L);
 
         movieFromBd.ifPresentOrElse(
