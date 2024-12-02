@@ -1,16 +1,13 @@
 package org.movieverse.movieverse_backend.controller;
 
+import com.stripe.exception.StripeException;
 import lombok.RequiredArgsConstructor;
-import org.movieverse.movieverse_backend.dto.MovieDto;
-import org.movieverse.movieverse_backend.entity.Movie;
-import org.movieverse.movieverse_backend.response.ApiResponsee;
-import org.movieverse.movieverse_backend.service.cart.CartServiceImpl;
-import org.movieverse.movieverse_backend.service.movie.MovieServiceImpl;
+import org.movieverse.movieverse_backend.response.*;
+import org.movieverse.movieverse_backend.service.cart.CartService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -20,35 +17,53 @@ import java.util.List;
 @CrossOrigin
 public class CartController {
 
-    private final CartServiceImpl cartServiceImpl;
-    private final MovieServiceImpl movieServiceImpl;
+    private final CartService cartService;
 
-    @GetMapping("/get-movies")
-    public ResponseEntity<ApiResponsee> getAllCartMovies(JwtAuthenticationToken token) {
-        List<Movie> movies = cartServiceImpl.getAllCartMovies(token);
-        //List<MovieDto> convertedMovies = movieServiceImpl.getConvertedMovies(movies);
-        List<MovieDto> convertedMovies = null;
-        return ResponseEntity.ok(new ApiResponsee("Success!", convertedMovies));
+    @GetMapping("/")
+    public ResponseEntity<ApiResponse<List<CartMovieResponse>>> getAllCartMovies(JwtAuthenticationToken token) {
+        List<CartMovieResponse> cartMovieResponseList = cartService.getAllCartMovies(token);
+
+        return ResponseEntity.ok(new ApiResponse<>(
+                "Success", "Cart movies obtained successfully!", cartMovieResponseList));
     }
 
     @GetMapping("/totalAmount")
-    public ResponseEntity<ApiResponsee> getCartTotalAmount(JwtAuthenticationToken token) {
-        BigDecimal totalAmount = cartServiceImpl.getCartTotalAmount(token);
-        return ResponseEntity.ok(new ApiResponsee("Success!", totalAmount));
+    public ResponseEntity<ApiResponse<CartTotalAmountResponse>> getCartTotalAmount(JwtAuthenticationToken token) {
+        CartTotalAmountResponse cartTotalAmountResponse = cartService.getCartTotalAmount(token);
+
+        return ResponseEntity.ok(new ApiResponse<>(
+                "Success", "Cart total amount obtained successfully!", cartTotalAmountResponse));
     }
 
-    @PostMapping("/add-movie/{movieId}")
-    public ResponseEntity<ApiResponsee> addMovie(@PathVariable Long movieId, JwtAuthenticationToken token) {
-        String response = cartServiceImpl.addMovie(movieId, token);
+    @PostMapping("/{movieId}")
+    public ResponseEntity<ApiResponse<RegisterCartMovieResponse>> registerCartMovie(
+            @PathVariable Long movieId, JwtAuthenticationToken token) {
+        RegisterCartMovieResponse registerCartMovieResponse = cartService.registerCartMovie(movieId, token);
 
-        return ResponseEntity.ok(new ApiResponsee(response, null));
+        return ResponseEntity.ok(new ApiResponse<>(
+                "Success",
+                "Movie with ID " + movieId + " registered successfully!",
+                registerCartMovieResponse));
     }
 
-    @DeleteMapping("/remove-movie/{movieId}")
-    public ResponseEntity<ApiResponsee> removeMovie(@PathVariable Long movieId, JwtAuthenticationToken token) {
+    @DeleteMapping("/{movieId}")
+    public ResponseEntity<ApiResponse<DeleteCartMovieResponse>> deleteCartMovie(
+            @PathVariable Long movieId, JwtAuthenticationToken token) {
+        DeleteCartMovieResponse deleteCartMovieResponse = cartService.deleteCartMovie(movieId, token);
 
-        String response = cartServiceImpl.removeMovie(movieId, token);
+        return ResponseEntity.ok(new ApiResponse<>(
+                "Success",
+                "Movie with ID " + movieId + " deleted successfully!",
+                deleteCartMovieResponse));
+    }
 
-        return ResponseEntity.ok(new ApiResponsee(response, null));
+    @PostMapping("/create-checkout-session")
+    public ResponseEntity<ApiResponse<CreateCheckoutSessionResponse>> createCheckoutSession(JwtAuthenticationToken token) throws StripeException {
+        CreateCheckoutSessionResponse createCheckoutSessionResponse = cartService.createCheckoutSession(token);
+
+        return ResponseEntity.ok(new ApiResponse<>(
+                "Success",
+                "Created checkout session successfully!",
+                createCheckoutSessionResponse));
     }
 }

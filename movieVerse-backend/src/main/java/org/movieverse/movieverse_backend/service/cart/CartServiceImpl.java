@@ -7,14 +7,15 @@ import lombok.RequiredArgsConstructor;
 import org.movieverse.movieverse_backend.entity.Cart;
 import org.movieverse.movieverse_backend.entity.Movie;
 import org.movieverse.movieverse_backend.entity.User;
+import org.movieverse.movieverse_backend.exception.ResourceAlreadyExistsException;
+import org.movieverse.movieverse_backend.exception.ResourceNotFoundException;
+import org.movieverse.movieverse_backend.mapper.CartMovieMapper;
 import org.movieverse.movieverse_backend.repository.CartRepository;
+import org.movieverse.movieverse_backend.repository.MovieRepository;
 import org.movieverse.movieverse_backend.repository.UserRepository;
-import org.movieverse.movieverse_backend.service.movie.MovieServiceImpl;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.movieverse.movieverse_backend.response.*;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -25,110 +26,109 @@ public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
     private final UserRepository userRepository;
-    private final MovieServiceImpl movieServiceImpl;
+    private final MovieRepository movieRepository;
 
     @Override
-    public List<Movie> getAllCartMovies(JwtAuthenticationToken token) {
-        //var user = userRepository.findById(UUID.fromString(token.getName()));
-        var user = userRepository.findById(1L);
+    public List<CartMovieResponse> getAllCartMovies(JwtAuthenticationToken token) {
+        Long userId = Long.parseLong(token.getName());
 
-        if(user.isPresent()) {
-            Cart cart = user.get().getCart();
-            return cart.getMovies();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+
+        Cart cart = user.getCart();
+        if(cart == null || cart.getMovies().isEmpty()) {
+            throw new ResourceNotFoundException("Cart has no movies!");
         }
 
-        return List.of();
+        return CartMovieMapper.toResponseList(cart.getMovies());
+    }
+
+
+    @Override
+    public CartTotalAmountResponse getCartTotalAmount(JwtAuthenticationToken token) {
+        Long userId = Long.parseLong(token.getName());
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+
+        Cart cart = user.getCart();
+        if(cart == null || cart.getMovies().isEmpty()) {
+            return new CartTotalAmountResponse(BigDecimal.ZERO);
+        }
+
+        return new CartTotalAmountResponse(cart.getTotalAmount());
     }
 
     @Override
-    public BigDecimal getCartTotalAmount(JwtAuthenticationToken token) {
-        //var user = userRepository.findById(UUID.fromString(token.getName()));
-        var user = userRepository.findById(1L);
+    public RegisterCartMovieResponse registerCartMovie(Long movieId, JwtAuthenticationToken token) {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new ResourceNotFoundException("Movie with ID " + movieId + " not found!"));
 
-        if(user.isPresent()) {
-            Cart cart = user.get().getCart();
-            return cart.getTotalAmount();
+        Long userId = Long.parseLong(token.getName());
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+
+        Cart cart = user.getCart();
+
+        if (cart.getMovies().stream()
+                .anyMatch(m -> m.getId().equals(movieId))) {
+            throw new ResourceAlreadyExistsException("Movie with ID " + movieId + " already in cart!");
         }
 
-        return null;
+        cart.addMovie(movie);
+        cartRepository.save(cart);
+
+        return new RegisterCartMovieResponse(movieId);
     }
 
     @Override
-    public String addMovie(Long movieId, JwtAuthenticationToken token) {
-        //Movie movieFromDb = movieServiceImpl.getMovieById(movieId);
-        Movie movieFromDb = null;
-        //var user = userRepository.findById(UUID.fromString(token.getName()));
-        var user = userRepository.findById(1L);
+    public DeleteCartMovieResponse deleteCartMovie(Long movieId, JwtAuthenticationToken token) {
+        movieRepository.findById(movieId)
+                .orElseThrow(() -> new ResourceNotFoundException("Movie with ID " + movieId + " not found!"));
 
-        if(user.isPresent()) {
-            Cart cart = user.get().getCart();
-            cart.getMovies().forEach(movie -> {
-                if(movie.getId().equals(movieFromDb.getId())) {
-                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Movie already in cart");
-                }
-            });
-            cart.addMovie(movieFromDb);
-            cartRepository.save(cart);
+        Long userId = Long.parseLong(token.getName());
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+
+        Cart cart = user.getCart();
+        boolean cartMovieRemoved = cart.getMovies().removeIf(m -> m.getId().equals(movieId));
+        if(!cartMovieRemoved) {
+            throw new ResourceNotFoundException("Cart movie with ID " + movieId + " not found!");
         }
 
-        return "Movie added to cart successfully!";
+        cartRepository.save(cart);
+
+        return new DeleteCartMovieResponse(movieId);
     }
 
-    @Override
-    public String removeMovie(Long movieId, JwtAuthenticationToken token) {
-        //Movie movieFromDb = movieServiceImpl.getMovieById(movieId);
-        Movie movieFromDb = null;
-        //var user = userRepository.findById(UUID.fromString(token.getName()));
-        var user = userRepository.findById(1L);
-
-        if(user.isPresent()) {
-            Cart cart = user.get().getCart();
-
-            for(Movie movie : cart.getMovies()) {
-                if(Objects.equals(movie.getId(), movieFromDb.getId())) {
-                    cart.removeMovie(movieFromDb);
-                    cartRepository.save(cart);
-
-                    return "Movie removed from cart successfully!";
-                }
-            }
-        }
-
-        return "Movie was not removed from cart!";
-    }
 
     @Override
-    public ResponseEntity<String> createCheckoutSession(JwtAuthenticationToken token) throws StripeException {
+    public CreateCheckoutSessionResponse createCheckoutSession(JwtAuthenticationToken token) throws StripeException {
+        Long userId = Long.parseLong(token.getName());
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
 
-        //Optional<User> user = userRepository.findById(UUID.fromString(token.getName()));
-        Optional<User> user = userRepository.findById(1L);
+        Cart cart = user.getCart();
 
-        if (user.isPresent()) {
-            Cart cart = user.get().getCart();
+        SessionCreateParams.Builder sessionBuilder = SessionCreateParams.builder()
+                .setMode(SessionCreateParams.Mode.PAYMENT)
+                .setSuccessUrl("http://localhost:5173/")
+                .setCancelUrl("http://localhost:5173/error");
 
-            SessionCreateParams.Builder sessionBuilder = SessionCreateParams.builder()
-                    .setMode(SessionCreateParams.Mode.PAYMENT)
-                    .setSuccessUrl("http://localhost:5173/")
-                    .setCancelUrl("http://localhost:5173/error");
-
-            for (Movie movie : cart.getMovies()) {
-                SessionCreateParams.LineItem lineItem = SessionCreateParams.LineItem.builder()
-                        .setPrice(movie.getStripeId())
-                        .setQuantity(1L)
-                        .build();
-                sessionBuilder.addLineItem(lineItem);
-            }
-
-            Session session = Session.create(sessionBuilder.build());
-
-            cart.removeMovies();
-            cartRepository.save(cart);
-
-            return ResponseEntity.ok(Map.of("url", session.getUrl()).toString());
+        for (Movie movie : cart.getMovies()) {
+            SessionCreateParams.LineItem lineItem = SessionCreateParams.LineItem.builder()
+                    .setPrice(movie.getStripeId())
+                    .setQuantity(1L)
+                    .build();
+            sessionBuilder.addLineItem(lineItem);
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Map.of("error", "Something went wrong with the payment!").toString());
+        Session session = Session.create(sessionBuilder.build());
+
+        // RETIRAR O FILME APENAS QUANDO FOR PAGO NO CHECKOUT
+        cart.removeMovies();
+        cartRepository.save(cart);
+
+        return new CreateCheckoutSessionResponse(session.getUrl());
     }
 
 }

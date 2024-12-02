@@ -26,8 +26,4 @@ public class MovieMapper {
                 .map(MovieMapper::toResponse)
                 .toList();
     }
-
-    /*public static Movie toEntity(MovieRequest request) {
-        // Lógica do mapeamento
-    }*/
 }
