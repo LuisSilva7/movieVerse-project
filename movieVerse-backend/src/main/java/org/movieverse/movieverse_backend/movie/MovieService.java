@@ -1,24 +1,81 @@
-package org.movieverse.movieverse_backend.config;
+package org.movieverse.movieverse_backend.movie;
 
 import lombok.RequiredArgsConstructor;
-import org.movieverse.movieverse_backend.entity.Movie;
-import org.movieverse.movieverse_backend.repository.MovieRepository;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.Transactional;
+import org.movieverse.movieverse_backend.exception.custom.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
+@Service
 @RequiredArgsConstructor
-@Configuration
-public class MoviesConfig implements CommandLineRunner {
+public class MovieService {
 
     private final MovieRepository movieRepository;
+    private final MovieMapper movieMapper;
 
-    @Override
-    @Transactional
-    public void run(String... args) {
+    public List<MovieResponse> findAllMovies() {
+        List<Movie> movies = movieRepository.findAll();
+
+        if (movies.isEmpty()) {
+            throw new ResourceNotFoundException("No movies found!");
+        }
+
+        return movies.stream()
+                .map(movieMapper::toMovieResponse)
+                .toList();
+    }
+
+    public Movie findById(Long movieId) {
+        return movieRepository.findById(movieId)
+                .orElseThrow(() -> new ResourceNotFoundException("Movie with ID " + movieId + " not found!"));
+    }
+
+    public MovieResponse findMovieById(Long movieId) {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new ResourceNotFoundException("Movie with ID " + movieId + " not found!"));
+
+        return movieMapper.toMovieResponse(movie);
+    }
+
+    public List<MovieResponse> findSuggestedMovies(Long movieId) {
+        Movie presentMovie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new ResourceNotFoundException("Movie with ID " + movieId + " not found!"));
+
+        List<Movie> movies = movieRepository.findMoviesByTypeExcludingId(presentMovie.getType(), movieId);
+
+        return movies.stream()
+                .map(movieMapper::toMovieResponse)
+                .toList();
+    }
+
+
+    public List<MovieResponse> findMoviesByType(String movieType) {
+        List<Movie> movies = movieRepository.findByType(movieType);
+
+        if (movies.isEmpty()) {
+            throw new ResourceNotFoundException("No " + movieType + " movies found!");
+        }
+
+        return movies.stream()
+                .map(movieMapper::toMovieResponse)
+                .toList();
+    }
+
+    public List<MovieResponse> findPopularMovies() {
+        List<Movie> movies = movieRepository.findPopularMovies();
+
+        if (movies.isEmpty()) {
+            throw new ResourceNotFoundException("No popular movies found!");
+        }
+
+        return movies.stream()
+                .map(movieMapper::toMovieResponse)
+                .toList();
+    }
+
+    public void moviesStarter() {
         Optional<Movie> movieFromBd = movieRepository.findById(1L);
 
         movieFromBd.ifPresentOrElse(

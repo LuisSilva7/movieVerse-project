@@ -1,7 +1,6 @@
 package org.movieverse.movieverse_backend.auth;
 
 import jakarta.mail.MessagingException;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.movieverse.movieverse_backend.cart.Cart;
 import org.movieverse.movieverse_backend.config.security.JwtService;
