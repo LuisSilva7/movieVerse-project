@@ -18,7 +18,7 @@ public record RegistrationRequest(
         String email,
         @NotEmpty(message = "Password is mandatory")
         @NotBlank(message = "Password is mandatory")
-        @Size(min = 8, message = "Password should be 8 characters long minimum")
+        @Size(min = 5, message = "Password should be 5 characters long minimum")
         String password
 ) {
 }

@@ -10,7 +10,7 @@ import org.movieverse.movieverse_backend.movie.Movie;
 import org.movieverse.movieverse_backend.movie.MovieService;
 import org.movieverse.movieverse_backend.user.User;
 import org.movieverse.movieverse_backend.user.UserService;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -25,8 +25,8 @@ public class CartService {
     private final UserService userService;
     private final MovieService movieService;
 
-    public List<CartResponse> findAllCartMovies(JwtAuthenticationToken token) {
-        Long userId = Long.parseLong(token.getName());
+    public List<CartResponse> findAllCartMovies(Authentication connectedUser) {
+        Long userId = Long.parseLong(connectedUser.getName());
         User user = userService.findUserById(userId);
 
         Cart cart = user.getCart();
@@ -39,10 +39,8 @@ public class CartService {
                 .toList();
     }
 
-
-    public BigDecimal findCartTotalAmount(JwtAuthenticationToken token) {
-        Long userId = Long.parseLong(token.getName());
-        User user = userService.findUserById(userId);
+    public BigDecimal findCartTotalAmount(Authentication connectedUser) {
+        User user = ((User) connectedUser.getPrincipal());
 
         Cart cart = user.getCart();
         if(cart == null || cart.getMovies().isEmpty()) {
@@ -52,8 +50,8 @@ public class CartService {
         return cart.getTotalAmount();
     }
 
-    public void addCartMovie(Long movieId, JwtAuthenticationToken token) {
-        Long userId = Long.parseLong(token.getName());
+    public void addCartMovie(Long movieId, Authentication connectedUser) {
+        Long userId = Long.parseLong(connectedUser.getName());
         User user = userService.findUserById(userId);
 
         Movie movie = movieService.findById(movieId);
@@ -69,8 +67,8 @@ public class CartService {
         cartRepository.save(cart);
     }
 
-    public void deleteCartMovie(Long movieId, JwtAuthenticationToken token) {
-        Long userId = Long.parseLong(token.getName());
+    public void deleteCartMovie(Long movieId, Authentication connectedUser) {
+        Long userId = Long.parseLong(connectedUser.getName());
         User user = userService.findUserById(userId);
 
         movieService.findById(movieId);
@@ -85,8 +83,8 @@ public class CartService {
     }
 
 
-    public String createCheckoutSession(JwtAuthenticationToken token) throws StripeException {
-        Long userId = Long.parseLong(token.getName());
+    public String createCheckoutSession(Authentication connectedUser) throws StripeException {
+        Long userId = Long.parseLong(connectedUser.getName());
         User user = userService.findUserById(userId);
 
         Cart cart = user.getCart();

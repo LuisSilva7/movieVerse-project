@@ -14,6 +14,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     List<Movie> findPopularMovies();
 
     // Find suggested Movies
-    @Query(value = "SELECT * FROM movies m WHERE m.type = :movieType AND m.id <> :movieId LIMIT 4", nativeQuery = true)
+    @Query(value = "SELECT * FROM movie m WHERE m.type = :movieType AND m.id <> :movieId LIMIT 4", nativeQuery = true)
     List<Movie> findMoviesByTypeExcludingId(@Param("movieType") String movieType, @Param("movieId") Long movieId);
 }

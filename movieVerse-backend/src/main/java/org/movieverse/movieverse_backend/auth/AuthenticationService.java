@@ -20,6 +20,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -47,6 +48,10 @@ public class AuthenticationService {
         var userRole = roleRepository.findByName("USER")
                 .orElseThrow(() -> new ResourceNotFoundException("Role with name: USER not found!"));
 
+        Cart cart = new Cart();
+        cart.setCreatedBy(request.email());
+        cart.setTotalAmount(BigDecimal.ZERO);
+
         var user = User.builder()
                 .firstname(request.firstname())
                 .lastname(request.lastname())
@@ -55,7 +60,7 @@ public class AuthenticationService {
                 .accountLocked(false)
                 .enabled(false)
                 .roles(List.of(userRole))
-                .cart(new Cart())
+                .cart(cart)
                 .build();
         userRepository.save(user);
         sendValidationEmail(user);
@@ -82,8 +87,8 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        if(userRepository.findByEmail(request.email()).isPresent()) {
-            throw new ResourceAlreadyExistsException("Email " + request.email() + " already exists!");
+        if(userRepository.findByEmail(request.email()).isEmpty()) {
+            throw new ResourceNotFoundException("Email " + request.email() + " not found!");
         }
 
         var auth = authenticationManager.authenticate(
