@@ -1,7 +1,12 @@
-package org.movieverse.movieverse_backend.entity;
+package org.movieverse.movieverse_backend.cart;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.movieverse.movieverse_backend.common.BaseEntity;
+import org.movieverse.movieverse_backend.movie.Movie;
+import org.movieverse.movieverse_backend.user.User;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -11,17 +16,11 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
-@Table(name = "cart")
-public class Cart {
+@EntityListeners(AuditingEntityListener.class)
+public class Cart extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @Column(name = "total_amount")
     private BigDecimal totalAmount;
 
     @ManyToMany

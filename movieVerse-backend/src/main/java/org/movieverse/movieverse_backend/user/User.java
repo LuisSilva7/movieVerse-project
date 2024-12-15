@@ -2,6 +2,7 @@ package org.movieverse.movieverse_backend.user;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.movieverse.movieverse_backend.cart.Cart;
 import org.movieverse.movieverse_backend.role.Role;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -22,7 +23,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
 @EntityListeners(AuditingEntityListener.class)
 public class User implements UserDetails, Principal {
 
@@ -33,7 +33,7 @@ public class User implements UserDetails, Principal {
     private String lastname;
     private LocalDate dateOfBirth;
     @Column(unique = true)
-    private String username;
+    private String email;
     private String password;
     private boolean accountLocked;
     private boolean enabled;
@@ -41,10 +41,9 @@ public class User implements UserDetails, Principal {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
-    //relationships
-    //@OneToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "cart_id")
-    //private Cart cart;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -55,7 +54,7 @@ public class User implements UserDetails, Principal {
 
     @Override
     public String getName() {
-        return username;
+        return email;
     }
 
     @Override
@@ -73,7 +72,7 @@ public class User implements UserDetails, Principal {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override
@@ -96,7 +95,7 @@ public class User implements UserDetails, Principal {
         return enabled;
     }
 
-    public String fullName() {
+    public String fullname() {
         return firstname + " " + lastname;
     }
 }

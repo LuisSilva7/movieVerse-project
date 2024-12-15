@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class StripeConfig {
 
-    public StripeConfig(@Value("${stripe.api.key}") String apiKey) {
+    public StripeConfig(@Value("${application.stripe.api.key}") String apiKey) {
         Stripe.apiKey = apiKey;
     }
 }
