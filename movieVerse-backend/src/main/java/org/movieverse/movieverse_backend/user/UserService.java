@@ -7,6 +7,7 @@ import org.movieverse.movieverse_backend.role.RoleService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,10 @@ public class UserService {
         userAdmin.ifPresentOrElse(
                 user -> System.out.println("Admin already exists!"),
                 () -> {
+                    Cart cart = new Cart();
+                    cart.setCreatedBy("silva@gmail.com");
+                    cart.setTotalAmount(BigDecimal.ZERO);
+
                     User user = User.builder()
                             .firstname("Luís")
                             .lastname("Silva")
@@ -40,7 +45,7 @@ public class UserService {
                             .accountLocked(false)
                             .enabled(true)
                             .roles(List.of(userRole))
-                            .cart(new Cart())
+                            .cart(cart)
                             .build();
 
                     userRepository.save(user);

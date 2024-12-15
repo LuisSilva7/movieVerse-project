@@ -91,7 +91,7 @@ public class MovieService {
                     movie0.setDuration(119);
                     movie0.setRating(7.8);
                     movie0.setStripeId("price_1PWge0DCoRbghNPDKaXyW6HP");
-
+                    movie0.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie0);
 
                     Movie movie1 = new Movie();
@@ -104,6 +104,7 @@ public class MovieService {
                     movie1.setDuration(118);
                     movie1.setRating(6.5);
                     movie1.setStripeId("price_1PWgeLDCoRbghNPDnFCzai34");
+                    movie1.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie1);
 
                     Movie movie2 = new Movie();
@@ -116,6 +117,7 @@ public class MovieService {
                     movie2.setDuration(113);
                     movie2.setRating(7.1);
                     movie2.setStripeId("price_1PWgecDCoRbghNPDn7OwskiS");
+                    movie2.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie2);
 
                     Movie movie3 = new Movie();
@@ -128,6 +130,7 @@ public class MovieService {
                     movie3.setDuration(122);
                     movie3.setRating(5.2);
                     movie3.setStripeId("price_1PWggcDCoRbghNPDU45zjM1h");
+                    movie3.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie3);
 
                     Movie movie4 = new Movie();
@@ -140,6 +143,7 @@ public class MovieService {
                     movie4.setDuration(115);
                     movie4.setRating(6.8);
                     movie4.setStripeId("price_1PWggtDCoRbghNPD0mOtL92Q");
+                    movie4.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie4);
 
                     Movie movie5 = new Movie();
@@ -152,6 +156,7 @@ public class MovieService {
                     movie5.setDuration(112);
                     movie5.setRating(6.7);
                     movie5.setStripeId("price_1PWghRDCoRbghNPDFZvDMlxZ");
+                    movie5.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie5);
 
                     Movie movie6 = new Movie();
@@ -164,6 +169,7 @@ public class MovieService {
                     movie6.setDuration(124);
                     movie6.setRating(6.6);
                     movie6.setStripeId("price_1PWgi1DCoRbghNPDcRktfGFk");
+                    movie6.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie6);
 
                     Movie movie7 = new Movie();
@@ -176,6 +182,7 @@ public class MovieService {
                     movie7.setDuration(110);
                     movie7.setRating(7.0);
                     movie7.setStripeId("price_1PWgiKDCoRbghNPDZQs7bkJW");
+                    movie7.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie7);
 
                     Movie movie8 = new Movie();
@@ -188,6 +195,7 @@ public class MovieService {
                     movie8.setDuration(130);
                     movie8.setRating(8.3);
                     movie8.setStripeId("price_1PWgihDCoRbghNPD7q5VuZIC");
+                    movie8.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie8);
 
                     Movie movie9 = new Movie();
@@ -200,6 +208,7 @@ public class MovieService {
                     movie9.setDuration(123);
                     movie9.setRating(7.9);
                     movie9.setStripeId("price_1PWgj1DCoRbghNPDO1GfBKld");
+                    movie9.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie9);
 
                     Movie movie10 = new Movie();
@@ -212,6 +221,7 @@ public class MovieService {
                     movie10.setDuration(135);
                     movie10.setRating(8.1);
                     movie10.setStripeId("price_1PWgjUDCoRbghNPD3clxhX3b");
+                    movie10.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie10);
 
                     Movie movie11 = new Movie();
@@ -224,6 +234,7 @@ public class MovieService {
                     movie11.setDuration(120);
                     movie11.setRating(8.6);
                     movie11.setStripeId("price_1PWgjtDCoRbghNPDuVM3ZjO6");
+                    movie11.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie11);
 
                     Movie movie12 = new Movie();
@@ -236,6 +247,7 @@ public class MovieService {
                     movie12.setDuration(107);
                     movie12.setRating(6.4);
                     movie12.setStripeId("price_1PWglZDCoRbghNPDgOVLQoqA");
+                    movie12.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie12);
 
                     Movie movie13 = new Movie();
@@ -248,6 +260,7 @@ public class MovieService {
                     movie13.setDuration(155);
                     movie13.setRating(8.2);
                     movie13.setStripeId("price_1PWglsDCoRbghNPDYZgDi9ei");
+                    movie13.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie13);
 
                     Movie movie14 = new Movie();
@@ -260,6 +273,7 @@ public class MovieService {
                     movie14.setDuration(109);
                     movie14.setRating(6.5);
                     movie14.setStripeId("price_1PWgmGDCoRbghNPDO74cKErb");
+                    movie14.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie14);
 
                     Movie movie15 = new Movie();
@@ -272,6 +286,7 @@ public class MovieService {
                     movie15.setDuration(123);
                     movie15.setRating(7.0);
                     movie15.setStripeId("price_1PWgmhDCoRbghNPD5LpypCqp");
+                    movie15.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie15);
 
                     Movie movie16 = new Movie();
@@ -284,6 +299,7 @@ public class MovieService {
                     movie16.setDuration(129);
                     movie16.setRating(7.5);
                     movie16.setStripeId("price_1PWgn6DCoRbghNPDVOOKW9Wn");
+                    movie16.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie16);
 
                     Movie movie17 = new Movie();
@@ -296,6 +312,7 @@ public class MovieService {
                     movie17.setDuration(116);
                     movie17.setRating(7.2);
                     movie17.setStripeId("price_1PWgncDCoRbghNPDkH2vKNML");
+                    movie17.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie17);
 
                     Movie movie18 = new Movie();
@@ -308,6 +325,7 @@ public class MovieService {
                     movie18.setDuration(110);
                     movie18.setRating(6.9);
                     movie18.setStripeId("price_1PWfnYDCoRbghNPDp3cGq1nb");
+                    movie18.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie18);
 
                     Movie movie19 = new Movie();
@@ -320,6 +338,7 @@ public class MovieService {
                     movie19.setDuration(117);
                     movie19.setRating(6.3);
                     movie19.setStripeId("price_1PWgoLDCoRbghNPDXfdkpdIr");
+                    movie19.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie19);
 
                     Movie movie20 = new Movie();
@@ -332,6 +351,7 @@ public class MovieService {
                     movie20.setDuration(105);
                     movie20.setRating(5.8);
                     movie20.setStripeId("price_1PWgoeDCoRbghNPD6jEb6uIT");
+                    movie20.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie20);
 
                     Movie movie21 = new Movie();
@@ -344,6 +364,7 @@ public class MovieService {
                     movie21.setDuration(86);
                     movie21.setRating(6.9);
                     movie21.setStripeId("price_1PWgouDCoRbghNPDMFRyLJEu");
+                    movie21.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie21);
 
                     Movie movie22 = new Movie();
@@ -356,6 +377,7 @@ public class MovieService {
                     movie22.setDuration(123);
                     movie22.setRating(7.8);
                     movie22.setStripeId("price_1PWgpDDCoRbghNPD0zoBJKva");
+                    movie22.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie22);
 
                     Movie movie23 = new Movie();
@@ -368,6 +390,7 @@ public class MovieService {
                     movie23.setDuration(97);
                     movie23.setRating(6.3);
                     movie23.setStripeId("price_1PWg0FDCoRbghNPDW8g553VS");
+                    movie23.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie23);
 
                     Movie movie24 = new Movie();
@@ -380,6 +403,7 @@ public class MovieService {
                     movie24.setDuration(116);
                     movie24.setRating(7.0);
                     movie24.setStripeId("price_1PWgpaDCoRbghNPDd7ZeKjBr");
+                    movie24.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie24);
 
                     Movie movie25 = new Movie();
@@ -392,6 +416,7 @@ public class MovieService {
                     movie25.setDuration(119);
                     movie25.setRating(7.3);
                     movie25.setStripeId("price_1PWgq7DCoRbghNPDPbGC2sIL");
+                    movie25.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie25);
 
                     Movie movie26 = new Movie();
@@ -404,6 +429,7 @@ public class MovieService {
                     movie26.setDuration(102);
                     movie26.setRating(7.5);
                     movie26.setStripeId("price_1PWgqYDCoRbghNPDeEguejas");
+                    movie26.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie26);
 
                     Movie movie27 = new Movie();
@@ -416,6 +442,7 @@ public class MovieService {
                     movie27.setDuration(100);
                     movie27.setRating(6.4);
                     movie27.setStripeId("price_1PWgqoDCoRbghNPDTlBhp52Y");
+                    movie27.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie27);
 
                     Movie movie28 = new Movie();
@@ -428,6 +455,7 @@ public class MovieService {
                     movie28.setDuration(91);
                     movie28.setRating(5.3);
                     movie28.setStripeId("price_1PWgrHDCoRbghNPDtuKUeK1X");
+                    movie28.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie28);
 
                     Movie movie29 = new Movie();
@@ -440,6 +468,7 @@ public class MovieService {
                     movie29.setDuration(104);
                     movie29.setRating(6.2);
                     movie29.setStripeId("price_1PWgraDCoRbghNPDmymeCGPG");
+                    movie29.setCreatedBy("silva@gmail.com");
                     movieRepository.save(movie29);
                 }
         );
