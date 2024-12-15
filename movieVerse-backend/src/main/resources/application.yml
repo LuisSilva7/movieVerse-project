@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/movieVerse_db
+    username: username
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+  mail:
+    host: localhost
+    port: 1025
+    username: silva
+    password: silva
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        starttls:
+          enabled: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
+application:
+  security:
+    jwt:
+      secrete-key: MIICXQIBAAKBgQCBE5BEsEmGip30iQf+1VPNqOMP90Y/bHGN9loT4+ADFEGGU61dgzRns1rkFwPNl9xB2Ctg2EM1gbFHE/dcoxl+lB3grRN0m6cA/XYg2gKuOgI3HzuH0OxKnEW9aGSUwcdK21g5jVrg9KAonBXu3KXAS2e90nFPnk5j8OchWR1HdwIDAQABAoGATu0xiG7rZrOYRpEMLI0xg05EGd0wPVQIU7BSAFuU/Q0DzCmaltXF06teZp6UGsFDU5flXoCfCDbXugjBdwncahjZkAkqOnVxCS6Xzsr6jYWqpXSJvj0//A4kU3fIj2UexGMj2GjI3Axd++euz6b9zMWvlbPbjvAqIUU78UXT17ECQQD/NcpxnxB5pYpLYTQZmH9NgS1iLqpPxk2wq71VvrD5pO3txNXl4qe8PS+ZK8Ev9KhgBi50QRIN8yMweOumiR+DAkEAgXnVfWEGSuSv8upbnrB5xDGMktrkVWAJEeCKhE5tk6+sN/8fWQO/tY5y7PKW6izVgt4/m9BFqnbq2PQQgc3h/QJBAI4J5xljuSyrGJQpjnCscjW1roeVh06NBNJOUzs0vZTD2XRa991RT5+xwhsSwhuppEiFSDeFu8Gtz6j7s9PlP3cCQFqFz9mFCF08Xje72qqsP7YH3nyeRZ3bMvwovS+blcj3vbS4zjXyBQruuTMouJKpHe4NbPOHPe3cjn14xkG6rBECQQC/7LUx+jzLvV5ENneISHn/oOpwoKzv+uYR5jRzHONWdMd7EHKrSYiC1cK5v7i/aj9mtGngKnE0SEzm/yKCTePI
+      expiration: 8640000
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activate-account
+  stripe:
+    api:
+      key: sk_test_51PWfh2DCoRbghNPD6LmgLOEnq3NRWeLq1KjPCXNmuvvzGT8db0rO3l7eLZ1HtL8NtR6gwim52LAWqtMAOEUIfYPo0035tfxzYr
+server:
+  port: 8888
