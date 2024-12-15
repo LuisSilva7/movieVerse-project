@@ -1,7 +1,7 @@
 package org.movieverse.movieverse_backend.service.movie;
 
 import lombok.RequiredArgsConstructor;
-import org.movieverse.movieverse_backend.exception.ResourceNotFoundException;
+import org.movieverse.movieverse_backend.exception.custom.ResourceNotFoundException;
 import org.movieverse.movieverse_backend.entity.Movie;
 import org.movieverse.movieverse_backend.mapper.MovieMapper;
 import org.movieverse.movieverse_backend.repository.MovieRepository;

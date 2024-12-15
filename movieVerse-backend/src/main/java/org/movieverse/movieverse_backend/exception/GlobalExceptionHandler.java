@@ -1,5 +1,8 @@
 package org.movieverse.movieverse_backend.exception;
 
+import org.movieverse.movieverse_backend.exception.custom.ResourceAlreadyExistsException;
+import org.movieverse.movieverse_backend.exception.custom.ResourceNotFoundException;
+import org.movieverse.movieverse_backend.exception.custom.UnauthorizedAccessException;
 import org.movieverse.movieverse_backend.response.ApiResponse;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
