@@ -2,6 +2,7 @@ package org.movieverse.movieverse_backend.movie;
 
 import lombok.RequiredArgsConstructor;
 import org.movieverse.movieverse_backend.common.ApiResponse;
+import org.movieverse.movieverse_backend.common.PageResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +17,11 @@ public class MovieController {
     private final MovieService movieService;
 
     @GetMapping("/")
-    public ResponseEntity<ApiResponse<List<MovieResponse>>> findAllMovies() {
-        List<MovieResponse> response = movieService.findAllMovies();
+    public ResponseEntity<ApiResponse<PageResponse<MovieResponse>>> findAllMovies(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size
+    ) {
+        PageResponse<MovieResponse> response = movieService.findAllMovies(page, size);
 
         return ResponseEntity.ok(new ApiResponse<>(
                 "Movies obtained successfully!", response));

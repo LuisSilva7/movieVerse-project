@@ -23,7 +23,7 @@ public class Cart extends BaseEntity {
 
     private BigDecimal totalAmount;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="cart_movie",
             joinColumns=
             @JoinColumn(name="cart_id", referencedColumnName="id"),
@@ -41,7 +41,7 @@ public class Cart extends BaseEntity {
     }
 
     public void removeMovie(Movie movie) {
-        this.movies.remove(movie);
+        this.movies.removeIf(m -> m.getId().equals(movie.getId()));
         updateTotalAmount();
     }
 

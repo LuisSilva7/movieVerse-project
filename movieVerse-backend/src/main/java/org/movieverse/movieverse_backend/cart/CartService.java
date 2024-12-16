@@ -9,7 +9,6 @@ import org.movieverse.movieverse_backend.exception.custom.ResourceNotFoundExcept
 import org.movieverse.movieverse_backend.movie.Movie;
 import org.movieverse.movieverse_backend.movie.MovieService;
 import org.movieverse.movieverse_backend.user.User;
-import org.movieverse.movieverse_backend.user.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -22,16 +21,14 @@ public class CartService {
 
     private final CartRepository cartRepository;
     private final CartMapper cartMapper;
-    private final UserService userService;
     private final MovieService movieService;
 
     public List<CartResponse> findAllCartMovies(Authentication connectedUser) {
-        Long userId = Long.parseLong(connectedUser.getName());
-        User user = userService.findUserById(userId);
+        User user = ((User) connectedUser.getPrincipal());
 
         Cart cart = user.getCart();
         if(cart == null || cart.getMovies().isEmpty()) {
-            throw new ResourceNotFoundException("User with ID: " + userId + "has no movies in cart!");
+            throw new ResourceNotFoundException("User with ID: " + user.getId() + " has no movies in cart!");
         }
 
         return cart.getMovies().stream()
@@ -51,8 +48,7 @@ public class CartService {
     }
 
     public void addCartMovie(Long movieId, Authentication connectedUser) {
-        Long userId = Long.parseLong(connectedUser.getName());
-        User user = userService.findUserById(userId);
+        User user = ((User) connectedUser.getPrincipal());
 
         Movie movie = movieService.findById(movieId);
 
@@ -68,24 +64,23 @@ public class CartService {
     }
 
     public void deleteCartMovie(Long movieId, Authentication connectedUser) {
-        Long userId = Long.parseLong(connectedUser.getName());
-        User user = userService.findUserById(userId);
+        User user = ((User) connectedUser.getPrincipal());
 
-        movieService.findById(movieId);
+        Movie movie = movieService.findById(movieId);
 
         Cart cart = user.getCart();
-        boolean cartMovieRemoved = cart.getMovies().removeIf(m -> m.getId().equals(movieId));
-        if(!cartMovieRemoved) {
-            throw new ResourceNotFoundException("Cart movie with ID " + movieId + " not found!");
+
+        if(cart.getMovies().stream().noneMatch(m -> m.getId().equals(movieId))) {
+            throw new ResourceNotFoundException("Movie with ID: " + movie.getId() + " not found in cart!");
         }
 
+        cart.removeMovie(movie);
         cartRepository.save(cart);
     }
 
 
     public String createCheckoutSession(Authentication connectedUser) throws StripeException {
-        Long userId = Long.parseLong(connectedUser.getName());
-        User user = userService.findUserById(userId);
+        User user = ((User) connectedUser.getPrincipal());
 
         Cart cart = user.getCart();
 

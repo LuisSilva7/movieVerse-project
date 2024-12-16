@@ -1,5 +1,7 @@
 package org.movieverse.movieverse_backend.movie;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +18,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     // Find suggested Movies
     @Query(value = "SELECT * FROM movie m WHERE m.type = :movieType AND m.id <> :movieId LIMIT 4", nativeQuery = true)
     List<Movie> findMoviesByTypeExcludingId(@Param("movieType") String movieType, @Param("movieId") Long movieId);
+
+    @Query("SELECT movie FROM Movie movie")
+    Page<Movie> findAllMovies(Pageable pageable);
 }

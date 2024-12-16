@@ -1,7 +1,12 @@
 package org.movieverse.movieverse_backend.movie;
 
 import lombok.RequiredArgsConstructor;
+import org.movieverse.movieverse_backend.common.PageResponse;
 import org.movieverse.movieverse_backend.exception.custom.ResourceNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -15,16 +20,27 @@ public class MovieService {
     private final MovieRepository movieRepository;
     private final MovieMapper movieMapper;
 
-    public List<MovieResponse> findAllMovies() {
-        List<Movie> movies = movieRepository.findAll();
+    public PageResponse<MovieResponse> findAllMovies(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").ascending());
+        Page<Movie> movies = movieRepository.findAllMovies(pageable);
 
         if (movies.isEmpty()) {
             throw new ResourceNotFoundException("No movies found!");
         }
 
-        return movies.stream()
+        List<MovieResponse> response = movies.stream()
                 .map(movieMapper::toMovieResponse)
                 .toList();
+
+        return new PageResponse<>(
+                response,
+                movies.getNumber(),
+                movies.getSize(),
+                movies.getTotalElements(),
+                movies.getTotalPages(),
+                movies.isFirst(),
+                movies.isLast()
+        );
     }
 
     public Movie findById(Long movieId) {
