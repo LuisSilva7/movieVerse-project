@@ -12,7 +12,7 @@ const Suggestions = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch(`/api/v1/movies/suggestion/${id}`, {
+        const response = await fetch(`/api/v1/movies/${id}/suggestions`, {
           method: "GET",
         });
 

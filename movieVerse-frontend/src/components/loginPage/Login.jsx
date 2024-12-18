@@ -2,28 +2,28 @@ import React, { useState } from "react";
 import styles from "./login.module.css";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/v1/auth/login", {
+      const response = await fetch("/api/v1/auth/authenticate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("accessToken", data.data.token);
         alert("Login successful!");
         window.location.href = "/products";
       } else {
-        setError("Invalid username or password");
+        setError("Invalid email or password");
       }
     } catch (err) {
       console.error("Error during login:", err);
@@ -36,13 +36,13 @@ const Login = () => {
       <h1 className={styles["login-title"]}>Login</h1>
       <form className={styles["login-form"]} onSubmit={handleSubmit}>
         <div className={styles["form-group"]}>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="email">Email</label>
           <input
             type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter your username"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
             required
           />
         </div>
@@ -62,8 +62,8 @@ const Login = () => {
         </button>
       </form>
       <div className={styles["default-credentials"]}>
-        <p>Default Username: admin</p>
-        <p>Default Username: 123</p>
+        <p>Default email: silva@gmail.com</p>
+        <p>Default password: 12345</p>
       </div>
     </div>
   );

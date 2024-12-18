@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./productsTable.module.css";
-import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const ProductsTable = () => {
@@ -18,7 +17,7 @@ const ProductsTable = () => {
 
     const fetchTotalAmount = async () => {
       try {
-        const response = await fetch("/api/v1/cart/totalAmount", {
+        const response = await fetch("/api/v1/carts/totalAmount", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -32,15 +31,14 @@ const ProductsTable = () => {
 
         const data = await response.json();
         setCartTotalAmount(data.data);
-        console.log(data);
       } catch (error) {
-        setError(error.message);
+        console.error("Error fetching total amount:", error.message);
       }
     };
 
     const fetchMovies = async () => {
       try {
-        const response = await fetch("/api/v1/cart/get-movies", {
+        const response = await fetch("/api/v1/carts/", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -54,27 +52,17 @@ const ProductsTable = () => {
 
         const data = await response.json();
         setCartMovies(data.data);
-        console.log(data);
       } catch (error) {
-        setError(error.message);
+        console.error("Error fetching movies:", error.message);
       }
     };
 
     fetchTotalAmount();
     fetchMovies();
-  }, [cartMovies]);
+  }, [navigate]);
 
   const redirectToMovies = () => {
     navigate("/products");
-  };
-
-  const totalPrice = () => {
-    let total = 0;
-    cartMovies.forEach((cartMovie) => {
-      total += cartMovie.price * 100;
-    });
-
-    return (total / 100).toFixed(2);
   };
 
   const removeProduct = async (movieId) => {
@@ -86,7 +74,7 @@ const ProductsTable = () => {
     }
 
     try {
-      const url = `/api/v1/cart/remove-movie/${movieId}`;
+      const url = `/api/v1/carts/${movieId}`;
 
       const response = await fetch(url, {
         method: "DELETE",
@@ -102,6 +90,10 @@ const ProductsTable = () => {
 
       const data = await response.json();
       console.log(data);
+
+      setCartMovies((prevMovies) =>
+        prevMovies.filter((movie) => movie.id !== movieId)
+      );
 
       alert("Movie removed from cart!");
     } catch (error) {
@@ -119,7 +111,7 @@ const ProductsTable = () => {
     }
 
     try {
-      const response = await fetch("/api/v1/checkout/create-checkout-session", {
+      const response = await fetch("/api/v1/carts/create-checkout-session", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -131,13 +123,9 @@ const ProductsTable = () => {
         throw new Error("Falha ao criar a sessão de checkout");
       }
 
-      const data = await response.text();
-      console.log("Sessão de checkout criada com sucesso:", data);
+      const data = await response.json();
 
-      const startIdx = data.indexOf("=") + 1;
-      const endIdx = data.indexOf("}");
-      const url = data.substring(startIdx, endIdx);
-      window.open(url);
+      window.open(data.data);
     } catch (error) {
       console.error("Erro ao criar a sessão de checkout:", error);
       alert("Falha ao criar a sessão de checkout. Tente novamente.");

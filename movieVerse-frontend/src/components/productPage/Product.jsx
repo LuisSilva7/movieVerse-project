@@ -44,7 +44,7 @@ const Product = () => {
 
     const fetchMovies = async () => {
       try {
-        const response = await fetch("/api/v1/cart/get-movies", {
+        const response = await fetch("/api/v1/carts/", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -53,20 +53,26 @@ const Product = () => {
         });
 
         if (!response.ok) {
-          throw new Error("Error fetching movies.");
+          if (response.status === 404) {
+            setMovieInCart("ADD TO CART");
+            return;
+          }
+          throw new Error("Error fetching cart data.");
         }
 
         const data = await response.json();
 
-        for (let m of data.data) {
-          if (movie.name === m.name) {
-            setMovieInCart("REMOVE FROM CART");
-            return;
-          }
+        if (data.data && data.data.length > 0) {
+          const isInCart = data.data.some((m) => m.name === movie.name);
+          setMovieInCart(isInCart ? "REMOVE FROM CART" : "ADD TO CART");
+        } else {
+          setMovieInCart("ADD TO CART");
         }
+
         console.log(data);
       } catch (error) {
         setError(error.message);
+        console.error("Error:", error);
       }
     };
 
@@ -83,7 +89,7 @@ const Product = () => {
 
     if (movieInCart === "ADD TO CART") {
       try {
-        const url = `/api/v1/cart/add-movie/${id}`;
+        const url = `/api/v1/carts/${id}`;
 
         const response = await fetch(url, {
           method: "POST",
@@ -109,7 +115,7 @@ const Product = () => {
       }
     } else {
       try {
-        const url = `/api/v1/cart/remove-movie/${id}`;
+        const url = `/api/v1/carts/${id}`;
 
         const response = await fetch(url, {
           method: "DELETE",
