@@ -38,7 +38,7 @@ const PopularProducts = () => {
           <div key={movie.id} className={styles["popular-products-grid-item"]}>
             <Link to={`/products/${movie.id}`}>
               <img
-                src={`../../../movies-thumb/${movie.image}`} // Certifique-se de que o caminho da imagem está correto
+                src={`../../../movies-thumb/${movie.image}`}
                 alt={movie.name}
               />
             </Link>

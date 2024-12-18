@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./productsList.module.css";
 import { useEffect, useState } from "react";
-import { MdArrowForwardIos } from "react-icons/md";
+import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const MovieList = () => {
@@ -9,33 +9,43 @@ const MovieList = () => {
   const [error, setError] = useState(null);
   const [categoryFilter, setCategoryFilter] = useState("All Movies");
   const [sortByFilter, setSortByFilter] = useState("Featured");
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [isFirst, setIsFirst] = useState(true);
+  const [isLast, setIsLast] = useState(false);
 
   useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const response = await fetch("/api/v1/movies/all", {
-          method: "GET",
-        });
-
-        if (!response.ok) {
-          throw new Error("Error fetching movies.");
-        }
-
-        const data = await response.json();
-        setMovies(data.data);
-      } catch (error) {
-        setError(error.message);
-      }
-    };
-
     fetchMovies();
   }, []);
 
-  // Função que busca filmes de acordo com a categoria
+  const fetchMovies = async (page = 0) => {
+    try {
+      const response = await fetch(`/api/v1/movies/?page=${page}&size=15`, {
+        method: "GET",
+      });
+
+      if (!response.ok) {
+        throw new Error("Error fetching movies.");
+      }
+
+      const data = await response.json();
+
+      setMovies(data.data.content);
+      console.log("antes de guardar: " + page);
+      setPage(data.data.number);
+      console.log("depois de guardar: " + page);
+      setTotalPages(data.data.totalPages);
+      setIsFirst(data.data.first);
+      setIsLast(data.data.last);
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+    }
+  };
+
   const fetchMoviesByCategory = async (category) => {
     if (category === "All Movies") {
       try {
-        const response = await fetch("/api/v1/movies/all", {
+        const response = await fetch("api/v1/movies/", {
           method: "GET",
         });
 
@@ -44,13 +54,13 @@ const MovieList = () => {
         }
 
         const data = await response.json();
-        setMovies(data.data);
+        setMovies(data.data.content);
       } catch (error) {
         setError(error.message);
       }
     } else {
       try {
-        const response = await fetch(`/api/v1/movies/${category}`, {
+        const response = await fetch(`/api/v1/movies/type/${category}`, {
           method: "GET",
         });
 
@@ -66,14 +76,25 @@ const MovieList = () => {
     }
   };
 
-  // Função que é chamada ao clicar em uma categoria
   const handleCategoryClick = (category) => {
-    setCategoryFilter(category); // Atualiza a categoria selecionada
-    fetchMoviesByCategory(category); // Busca filmes da nova categoria
+    setCategoryFilter(category);
+    fetchMoviesByCategory(category);
   };
 
   const handleSorByFilterChange = (event) => {
     setSortByFilter(event.target.value);
+  };
+
+  const handleNextPage = () => {
+    if (!isLast) {
+      fetchMovies(page + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (!isFirst) {
+      fetchMovies(page - 1);
+    }
   };
 
   return (
@@ -253,6 +274,35 @@ const MovieList = () => {
                   <h6>{movie.price} €</h6>
                 </div>
               ))}
+      </div>
+      <div className={styles["pagination-buttons"]}>
+        {categoryFilter === "All Movies" && (
+          <>
+            {page > 0 && (
+              <button
+                className={styles["nav-button"]}
+                onClick={handlePreviousPage}
+                disabled={isFirst}
+              >
+                <MdArrowBackIosNew size={14} />{" "}
+              </button>
+            )}
+
+            <span className={styles["page-info"]}>
+              Page {page + 1} of {totalPages}
+            </span>
+
+            {page < totalPages - 1 && (
+              <button
+                className={styles["nav-button"]}
+                onClick={handleNextPage}
+                disabled={isLast}
+              >
+                <MdArrowForwardIos size={14} />{" "}
+              </button>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

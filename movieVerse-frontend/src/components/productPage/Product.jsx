@@ -13,7 +13,7 @@ const Product = () => {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const response = await fetch(`/api/v1/movies/movie/${id}`, {
+        const response = await fetch(`/api/v1/movies/${id}`, {
           method: "GET",
         });
 
