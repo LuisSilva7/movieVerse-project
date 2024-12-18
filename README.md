@@ -25,6 +25,7 @@
   - **JavaScript** - Used for client-side logic and interactivity.
 
 - **Backend**:
+  - **Docker** - A containerization platform used to package and deploy the application in lightweight, isolated environments, ensuring consistency across different environments and simplifying the deployment process.
   - **Java** - Programming language used for backend development.
   - **Spring Boot** - Framework for building the backend API and handling HTTP requests.
   - **MySQL** - Relational database for storing movie, user, and order data.
