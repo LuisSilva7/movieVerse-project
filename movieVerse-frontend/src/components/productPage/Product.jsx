@@ -140,27 +140,6 @@ const Product = () => {
         alert("Failed to remove movie from cart. Please try again.");
       }
     }
-
-    /*if (movieInCart == "REMOVE FROM CART") {
-      cartMovies = JSON.parse(localStorage.getItem("cartMovies"));
-      let newCartMovies = cartMovies.filter((m) => m != movie.id);
-      localStorage.setItem("cartMovies", JSON.stringify(newCartMovies));
-      setMovieInCart("ADD TO CART");
-      return;
-    }
-
-    let isMovieInCart = false;
-
-    if (localStorage.getItem("cartMovies")) {
-      cartMovies = JSON.parse(localStorage.getItem("cartMovies"));
-      isMovieInCart = cartMovies.some((cartMovie) => cartMovie == movie.id);
-    }
-
-    if (!isMovieInCart) {
-      cartMovies.push(movie.id);
-      setMovieInCart("REMOVE FROM CART");
-    }
-    localStorage.setItem("cartMovies", JSON.stringify(cartMovies));*/
   };
 
   return (
