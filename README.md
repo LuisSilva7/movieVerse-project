@@ -1,6 +1,6 @@
-# MovieStore Project
+# MovieVerse Project
 
-**MovieStore** is an online platform where users can browse and purchase movies. It features a user-friendly website for browsing and buying movies. The project is split into two main parts: the **Frontend** (the user interface) and the **Backend** (the API for handling movie data and purchases).
+**MovieVerse** is an online platform where users can browse and purchase movies. It features a user-friendly website for browsing and buying movies. The project is split into two main parts: the **Frontend** (the user interface) and the **Backend** (the API for handling movie data and purchases).
 
 ## Features
 
