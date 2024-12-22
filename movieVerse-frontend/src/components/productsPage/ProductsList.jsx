@@ -20,7 +20,7 @@ const MovieList = () => {
 
   const fetchMovies = async (page = 0) => {
     try {
-      const response = await fetch(`/api/v1/movies/?page=${page}&size=15`, {
+      const response = await fetch(`/api/v1/movies/?page=${page}&size=12`, {
         method: "GET",
       });
 

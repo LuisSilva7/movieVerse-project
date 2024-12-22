@@ -116,6 +116,32 @@ If you prefer to run the application inside a Docker container, follow these ste
 
 The application will be available at [http://localhost:5000](http://localhost:5000) in your browser.
 
+## Screenshots
+
+### Home Page
+
+![Home Page](screenshots/home.jpg)
+
+### About Page
+
+![About Page](screenshots/about.jpg)
+
+### Movies Page
+
+![Movies Page](screenshots/movies.jpg)
+
+### Movie Page
+
+![Movie Page](screenshots/movie.jpg)
+
+### Cart Page
+
+![Cart Page](screenshots/cart.jpg)
+
+### Stripe Page
+
+![Stripe Page](screenshots/stripe.jpg)
+
 ### Maintainer
 
 - **Luis Silva** (Owner/Developer)
