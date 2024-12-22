@@ -86,8 +86,8 @@ public class CartService {
 
         SessionCreateParams.Builder sessionBuilder = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl("http://localhost:5173/")
-                .setCancelUrl("http://localhost:5173/error");
+                .setSuccessUrl("http://localhost:5000/")
+                .setCancelUrl("http://localhost:5000/error");
 
         for (Movie movie : cart.getMovies()) {
             SessionCreateParams.LineItem lineItem = SessionCreateParams.LineItem.builder()

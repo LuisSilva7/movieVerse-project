@@ -18,19 +18,20 @@ public class RoleService {
 
     public void rolesStarter() {
         Optional<Role> adminRole = findByName("ADMIN");
-
         adminRole.ifPresentOrElse(
                 role -> System.out.println("Role already exists!"),
                 () -> {
-                    Role role = new Role();
-                    role.setName("ADMIN");
+                    roleRepository.save(
+                            Role.builder()
+                                    .name("ADMIN")
+                                    .build()
+                    );
 
-                    roleRepository.save(role);
-
-                    Role role2 = new Role();
-                    role.setName("USER");
-
-                    roleRepository.save(role2);
+                    roleRepository.save(
+                            Role.builder()
+                                    .name("USER")
+                                    .build()
+                    );
                 }
         );
     }
