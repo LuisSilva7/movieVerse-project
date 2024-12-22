@@ -114,7 +114,7 @@ If you prefer to run the application inside a Docker container, follow these ste
    docker compose up -d
    ```
 
-The application will be available at [http://localhost](http://localhost) in your browser.
+The application will be available at [http://localhost:5000](http://localhost:5000) in your browser.
 
 ### Maintainer
 
