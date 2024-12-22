@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org.movieverse</groupId>
 	<artifactId>movieverse-backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>MovieVerse Backend</name>
 	<description>Backend API for managing movie data and user interactions for the MovieVerse site.</description>
 	<url/>
