@@ -1,10 +1,14 @@
-# MovieVerse Project
+# MovieVerse - Ecommerce Shop
 
-**MovieVerse** is an online platform where users can browse and purchase movies. It features a user-friendly website for browsing and buying movies. The project is split into two main parts: the **Frontend** (the user interface) and the **Backend** (the API for handling movie data and purchases).
+MovieVerse is an online platform where users can browse and purchase movies. It features a user-friendly website for browsing and buying movies. The project is split into two main parts: the Frontend (the user interface) and the Backend (the API for handling movie data and purchases).
+
+## Why? (Motivation / Problem to Solve)
+
+MovieVerse aims to make purchasing movies online easier and more enjoyable. By providing a simple and intuitive platform, MovieVerse ensures that users can find, purchase, and enjoy movies seamlessly, while offering a secure and efficient shopping experience.
 
 ## Features
 
-- **User Authentication** - Users can seamlessly log in and log out of their accounts, providing personalized access to movie browsing and purchasing features.
+- **User Authentication**: Users can seamlessly log in and log out of their accounts, providing personalized access to movie browsing and purchasing features.
 - **Home Page with Popular Movies**: Users are greeted with a curated list of popular movies, showcasing the latest and most-viewed films.
 - **Pagination for All Movies**: Browse through a vast collection of movies with easy pagination, allowing users to navigate through large volumes of content effortlessly.
 - **Filter by Price (High to Low)**: Users can filter movies based on their price, selecting either the highest to lowest or the lowest to highest prices for an optimized shopping experience.
@@ -28,6 +32,90 @@
   - **Docker** - A containerization platform used to package and deploy the application in lightweight, isolated environments, ensuring consistency across different environments and simplifying the deployment process.
   - **Java** - Programming language used for backend development.
   - **Spring Boot** - Framework for building the backend API and handling HTTP requests.
+  - **Spring Data JPA** - Simplifies database interaction by providing an abstraction layer for managing data persistence, making it easier to interact with relational databases.
+  - **Spring Security** - Provides authentication and authorization, securing your application by managing user roles and permissions.
+  - **Spring Validation** - A framework used for validating input data, ensuring that the data received by the application is correct and meets the defined rules.
   - **MySQL** - Relational database for storing movie, user, and order data.
   - **JWT (JSON Web Tokens)** - For user authentication and secure communication between the frontend and backend.
   - **Stripe** - Payment processing system for handling movie purchases.
+
+## How to Run the Project Locally
+
+### Installation Steps
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/LuisSilva7/movieVerse-project.git
+   ```
+
+2. **Navigate to the project backend directory:**
+
+   ```bash
+   cd movieVerse-project/movieVerse-backend
+   ```
+
+3. **Install project dependencies:**
+
+   ```bash
+   mvn spring-boot:run
+   ```
+
+4. **Navigate to the project frontend directory:**
+
+   ```bash
+   cd movieVerse-project/movieVerse-frontend
+   ```
+
+5. **Install project dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+6. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+
+The application will be available at [http://localhost:5000](http://localhost:5000) in your browser.
+
+### Docker Setup (Optional)
+
+If you prefer to run the application inside a Docker container, follow these steps:
+
+1. **Navigate to the project frontend directory:**
+
+   ```bash
+   cd movieVerse-project/movieVerse-frontend
+   ```
+
+2. **Build the Docker frontend image:**
+
+   ```bash
+   docker build -t movieverse-frontend-project -f ../docker/frontend/Dockerfile .
+   ```
+
+3. **Navigate to the project backend directory:**
+
+   ```bash
+   cd movieVerse-project/movieVerse-frontend
+   ```
+
+4. **Build the Docker backend image:**
+
+   ```bash
+   docker build -t movieverse-backend-project -f ../docker/backend/Dockerfile .
+   ```
+
+5. **Run all containers:**
+
+   ```bash
+   docker compose up -d
+   ```
+
+The application will be available at [http://localhost](http://localhost) in your browser.
+
+### Maintainer
+
+- **Luis Silva** (Owner/Developer)
