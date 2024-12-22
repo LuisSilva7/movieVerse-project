@@ -1,7 +1,5 @@
 .wrapper {
   padding-top: 120px;
-  padding-bottom: 6rem;
-  background-color: rgb(255, 249, 251);
   display: flex;
   justify-content: center;
 }
@@ -91,6 +89,7 @@
 .products-table-bottom-wrapper {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 4rem;
 }
 
 .test-data {

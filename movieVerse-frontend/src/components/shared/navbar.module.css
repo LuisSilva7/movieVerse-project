@@ -11,6 +11,7 @@
   top: 0;
   left: 0;
   right: 0;
+  height: 100px;
 }
 
 .header-wrapper-scrolled {
@@ -26,7 +27,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 90px;
+  height: 100px;
   z-index: 1;
 }
 
@@ -111,7 +112,7 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 550px) {
   .header-wrapper,
   .header-wraper-scrolled {
     height: 90px;

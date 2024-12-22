@@ -65,7 +65,7 @@ const ProductsTable = () => {
     navigate("/products");
   };
 
-  const removeProduct = async (movieId) => {
+  const removeProduct = async (movieId, price) => {
     const accessToken = localStorage.getItem("accessToken");
 
     if (!accessToken) {
@@ -93,6 +93,10 @@ const ProductsTable = () => {
 
       setCartMovies((prevMovies) =>
         prevMovies.filter((movie) => movie.id !== movieId)
+      );
+
+      setCartTotalAmount(
+        (prevCartAmount) => Math.round((prevCartAmount - price) * 100) / 100
       );
 
       alert("Movie removed from cart!");
@@ -162,7 +166,11 @@ const ProductsTable = () => {
                         <h3>{cartMovie.name}</h3>
                       </Link>
                       <h4>IMDb {cartMovie.rating}</h4>
-                      <h5 onClick={() => removeProduct(cartMovie.id)}>
+                      <h5
+                        onClick={() =>
+                          removeProduct(cartMovie.id, cartMovie.price)
+                        }
+                      >
                         Eliminar
                       </h5>
                     </div>
