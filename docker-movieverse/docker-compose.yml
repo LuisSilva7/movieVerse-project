@@ -38,15 +38,15 @@ services:
       mysql:
         condition: service_healthy
 
-  #movieverse-frontend-project:
-  #  container_name: movieverse-frontend-project
-  #  image: movieverse-frontend-project
-  #  ports:
-  #    - 5000:80
-  #  networks:
-  #    - movieVerse-net
-  #  depends_on:
-  #    - movieverse-backend-project*/
+  movieverse-ui:
+    container_name: movieverse-ui
+    image: movieverse-frontend-project
+    ports:
+      - 8080:80
+    networks:
+      - movieVerse-net
+    depends_on:
+      - movieverse-api
 
 networks:
   movieVerse-net:

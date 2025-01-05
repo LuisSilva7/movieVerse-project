@@ -17,13 +17,16 @@ const ProductsTable = () => {
 
     const fetchTotalAmount = async () => {
       try {
-        const response = await fetch("/api/v1/carts/totalAmount", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        const response = await fetch(
+          "http://localhost:8888/api/v1/carts/totalAmount",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Error fetching movies.");
@@ -38,7 +41,7 @@ const ProductsTable = () => {
 
     const fetchMovies = async () => {
       try {
-        const response = await fetch("/api/v1/carts/", {
+        const response = await fetch("http://localhost:8888/api/v1/carts/", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -74,7 +77,7 @@ const ProductsTable = () => {
     }
 
     try {
-      const url = `/api/v1/carts/${movieId}`;
+      const url = `http://localhost:8888/api/v1/carts/${movieId}`;
 
       const response = await fetch(url, {
         method: "DELETE",
@@ -115,24 +118,27 @@ const ProductsTable = () => {
     }
 
     try {
-      const response = await fetch("/api/v1/carts/create-checkout-session", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await fetch(
+        "http://localhost:8888/api/v1/carts/create-checkout-session",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       if (!response.ok) {
-        throw new Error("Falha ao criar a sessão de checkout");
+        throw new Error("Error creating checkout session!");
       }
 
       const data = await response.json();
 
       window.open(data.data);
     } catch (error) {
-      console.error("Erro ao criar a sessão de checkout:", error);
-      alert("Falha ao criar a sessão de checkout. Tente novamente.");
+      console.error("Error creating checkout session:", error);
+      alert("Error creating checkout session! Please, try again.");
     }
   };
 

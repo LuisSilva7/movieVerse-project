@@ -70,7 +70,7 @@ MovieVerse aims to make purchasing movies online easier and more enjoyable. By p
 5. **Navigate to the project frontend directory:**
 
    ```bash
-   cd movieVerse-project/movieVerse-frontend
+   cd ../movieVerse-frontend
    ```
 
 6. **Install project dependencies:**
@@ -80,9 +80,13 @@ MovieVerse aims to make purchasing movies online easier and more enjoyable. By p
    ```
 
 7. **Start the development server:**
+
    ```bash
    npm run dev
    ```
+
+8. **Clear the LocalStorage:**
+   Clear your LocalStorage to make sure everything is working.
 
 The application will be available at [http://localhost:5000](http://localhost:5000) in your browser.
 
@@ -90,37 +94,40 @@ The application will be available at [http://localhost:5000](http://localhost:50
 
 If you prefer to run the application inside a Docker container, follow these steps:
 
-1. **Navigate to the project frontend directory:**
-
-   ```bash
-   cd movieVerse-project/movieVerse-frontend
-   ```
-
-2. **Build the Docker frontend image:**
-
-   ```bash
-   docker build -t movieverse-frontend-project -f ../docker/frontend/Dockerfile .
-   ```
-
-3. **Navigate to the project backend directory:**
+1. **Navigate to the project backend directory:**
 
    ```bash
    cd movieVerse-project/movieVerse-backend
    ```
 
-4. **Build the Docker backend image:**
+2. **Build the Docker backend image:**
 
    ```bash
-   docker build -t movieverse-backend-project -f ../docker/backend/Dockerfile .
+   docker build -t movieverse-backend-project -f ../docker-movieverse/backend/Dockerfile .
+   ```
+
+3. **Navigate to the project frontend directory:**
+
+   ```bash
+   cd ../movieVerse-frontend
+   ```
+
+4. **Build the Docker frontend image:**
+
+   ```bash
+   docker build -t movieverse-frontend-project -f ../docker-movieverse/frontend/Dockerfile .
    ```
 
 5. **Run all containers:**
 
    ```bash
-   docker compose -f ../docker/docker-compose.yml up -d
+   docker compose -f ../docker-movieverse/docker-compose.yml up -d
    ```
 
-The application will be available at [http://localhost:5000](http://localhost:5000) in your browser.
+6. **Clear the LocalStorage:**
+   Clear your LocalStorage to make sure everything is working.
+
+The application will be available at [http://localhost:8080](http://localhost:8080) in your browser.
 
 ## Screenshots
 

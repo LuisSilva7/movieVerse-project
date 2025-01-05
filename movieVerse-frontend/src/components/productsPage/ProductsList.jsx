@@ -18,25 +18,26 @@ const MovieList = () => {
     fetchMovies();
   }, []);
 
-  // Função para ordenar os filmes por preço
   const sortMoviesByPrice = (movies, sortBy) => {
-    let sortedMovies = [...movies]; // Criar uma cópia para não modificar o estado diretamente
+    let sortedMovies = [...movies];
 
     if (sortBy === "High-low") {
-      sortedMovies.sort((a, b) => b.price - a.price); // Ordena por preço do mais alto para o mais baixo
+      sortedMovies.sort((a, b) => b.price - a.price);
     } else if (sortBy === "Low-high") {
-      sortedMovies.sort((a, b) => a.price - b.price); // Ordena por preço do mais baixo para o mais alto
+      sortedMovies.sort((a, b) => a.price - b.price);
     }
 
     return sortedMovies;
   };
 
-  // Função para buscar filmes
   const fetchMovies = async (page = 0) => {
     try {
-      const response = await fetch(`/api/v1/movies/?page=${page}&size=12`, {
-        method: "GET",
-      });
+      const response = await fetch(
+        `http://localhost:8888/api/v1/movies/?page=${page}&size=12`,
+        {
+          method: "GET",
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Error fetching movies.");
@@ -44,7 +45,6 @@ const MovieList = () => {
 
       const data = await response.json();
 
-      // Ordenar filmes quando necessário (após carregá-los)
       const sortedMovies = sortMoviesByPrice(data.data.content, sortByFilter);
 
       setMovies(sortedMovies);
@@ -57,15 +57,17 @@ const MovieList = () => {
     }
   };
 
-  // Função para buscar filmes por categoria
   const fetchMoviesByCategory = async (category) => {
     if (category === "All Movies") {
       fetchMovies(page);
     } else {
       try {
-        const response = await fetch(`/api/v1/movies/type/${category}`, {
-          method: "GET",
-        });
+        const response = await fetch(
+          `http://localhost:8888/api/v1/movies/type/${category}`,
+          {
+            method: "GET",
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Error fetching movies.");
@@ -73,7 +75,6 @@ const MovieList = () => {
 
         const data = await response.json();
 
-        // Ordenar filmes por categoria e filtro de preço
         const sortedMovies = sortMoviesByPrice(data.data, sortByFilter);
 
         setMovies(sortedMovies);
@@ -83,30 +84,25 @@ const MovieList = () => {
     }
   };
 
-  // Função de seleção de categoria
   const handleCategoryClick = (category) => {
     setCategoryFilter(category);
     fetchMoviesByCategory(category);
   };
 
-  // Função que lida com a mudança no filtro de ordenação
   const handleSorByFilterChange = (event) => {
     const selectedSort = event.target.value;
     setSortByFilter(selectedSort);
 
-    // Ordenar novamente os filmes com base no filtro selecionado
     const sortedMovies = sortMoviesByPrice(movies, selectedSort);
     setMovies(sortedMovies);
   };
 
-  // Função para ir para a próxima página
   const handleNextPage = () => {
     if (!isLast) {
       fetchMovies(page + 1);
     }
   };
 
-  // Função para ir para a página anterior
   const handlePreviousPage = () => {
     if (!isFirst) {
       fetchMovies(page - 1);

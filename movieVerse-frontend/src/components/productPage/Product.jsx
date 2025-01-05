@@ -13,9 +13,12 @@ const Product = () => {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const response = await fetch(`/api/v1/movies/${id}`, {
-          method: "GET",
-        });
+        const response = await fetch(
+          `http://localhost:8888/api/v1/movies/${id}`,
+          {
+            method: "GET",
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Error fetching movies.");
@@ -44,7 +47,7 @@ const Product = () => {
 
     const fetchMovies = async () => {
       try {
-        const response = await fetch("/api/v1/carts/", {
+        const response = await fetch("http://localhost:8888/api/v1/carts/", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -89,7 +92,7 @@ const Product = () => {
 
     if (movieInCart === "ADD TO CART") {
       try {
-        const url = `/api/v1/carts/${id}`;
+        const url = `http://localhost:8888/api/v1/carts/${id}`;
 
         const response = await fetch(url, {
           method: "POST",
@@ -115,7 +118,7 @@ const Product = () => {
       }
     } else {
       try {
-        const url = `/api/v1/carts/${id}`;
+        const url = `http://localhost:8888/api/v1/carts/${id}`;
 
         const response = await fetch(url, {
           method: "DELETE",
