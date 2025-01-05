@@ -8,21 +8,24 @@
 
    ```bash
    git clone https://github.com/LuisSilva7/movieVerse-project.git
-
    ```
 
-2. Navigate to the project frontend directory:
+2. Navigate to the project backend directory:
 
    ```bash
    cd movieVerse-project/movieVerse-backend
-
    ```
 
-3. Setup the application.properties file and the MySQL Database
+3. Run MySQL container:
+
+   ```bash
+   docker compose up -d
+   ```
 
 4. Run the server:
 
-```bash
-  mvn spring-boot:run
+   ```bash
+   mvn spring-boot:run
+   ```
 
-```
+5. In order to use Stripe, you need to setup the api key in application.properties file and the movies Id.
