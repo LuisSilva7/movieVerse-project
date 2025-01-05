@@ -1,0 +1,56 @@
+services:
+  mysql:
+    container_name: mysql_movieVerse
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: movieVerse_db
+      MYSQL_USER: username
+      MYSQL_PASSWORD: password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - movieVerse-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mail-dev:
+    container_name: maildev_movieVerse
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+
+  movieverse-api:
+    container_name: movieverse-api
+    image: movieverse-backend-project
+    ports:
+      - 8888:8888
+    networks:
+      - movieVerse-net
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  #movieverse-frontend-project:
+  #  container_name: movieverse-frontend-project
+  #  image: movieverse-frontend-project
+  #  ports:
+  #    - 5000:80
+  #  networks:
+  #    - movieVerse-net
+  #  depends_on:
+  #    - movieverse-backend-project*/
+
+networks:
+  movieVerse-net:
+    driver: bridge
+
+volumes:
+  mysql_data:

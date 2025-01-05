@@ -105,7 +105,7 @@ If you prefer to run the application inside a Docker container, follow these ste
 3. **Navigate to the project backend directory:**
 
    ```bash
-   cd movieVerse-project/movieVerse-frontend
+   cd movieVerse-project/movieVerse-backend
    ```
 
 4. **Build the Docker backend image:**
@@ -117,7 +117,7 @@ If you prefer to run the application inside a Docker container, follow these ste
 5. **Run all containers:**
 
    ```bash
-   docker compose up -d
+   docker compose -f ../docker/docker-compose.yml up -d
    ```
 
 The application will be available at [http://localhost:5000](http://localhost:5000) in your browser.
