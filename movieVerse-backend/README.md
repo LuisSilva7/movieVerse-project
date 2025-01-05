@@ -28,4 +28,5 @@
    mvn spring-boot:run
    ```
 
-5. In order to use Stripe, you need to setup the api key in application.properties file and the movies Id.
+5. Stripe correct usage:
+   In order to use Stripe, you need to setup the api key in application.properties file and the movies Id.

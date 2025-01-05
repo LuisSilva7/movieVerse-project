@@ -28,4 +28,7 @@
    npm run dev
    ```
 
+5. **Clear the LocalStorage:**
+   Clear your LocalStorage to make sure everything is working.
+
 The application will be available at [http://localhost:5000](http://localhost:5000) in your browser.

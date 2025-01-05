@@ -67,25 +67,28 @@ MovieVerse aims to make purchasing movies online easier and more enjoyable. By p
    mvn spring-boot:run
    ```
 
-5. **Navigate to the project frontend directory:**
+5. **Stripe correct usage:**
+   In order to use Stripe, you need to setup the api key in application.properties file and the movies Id.
+
+6. **Navigate to the project frontend directory:**
 
    ```bash
    cd ../movieVerse-frontend
    ```
 
-6. **Install project dependencies:**
+7. **Install project dependencies:**
 
    ```bash
    npm install
    ```
 
-7. **Start the development server:**
+8. **Start the development server:**
 
    ```bash
    npm run dev
    ```
 
-8. **Clear the LocalStorage:**
+9. **Clear the LocalStorage:**
    Clear your LocalStorage to make sure everything is working.
 
 The application will be available at [http://localhost:5000](http://localhost:5000) in your browser.
@@ -124,7 +127,10 @@ If you prefer to run the application inside a Docker container, follow these ste
    docker compose -f ../docker-movieverse/docker-compose.yml up -d
    ```
 
-6. **Clear the LocalStorage:**
+6. **Stripe correct usage:**
+   In order to use Stripe, you need to setup the api key in application.properties file and the movies Id.
+
+7. **Clear the LocalStorage:**
    Clear your LocalStorage to make sure everything is working.
 
 The application will be available at [http://localhost:8080](http://localhost:8080) in your browser.
