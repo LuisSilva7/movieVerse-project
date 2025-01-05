@@ -61,7 +61,7 @@ MovieVerse aims to make purchasing movies online easier and more enjoyable. By p
    docker compose up -d
    ```
 
-4. **Install project dependencies:**
+4. **Run the backend server:**
 
    ```bash
    mvn spring-boot:run

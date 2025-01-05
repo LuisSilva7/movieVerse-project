@@ -22,7 +22,7 @@
    docker compose up -d
    ```
 
-4. Run the server:
+4. Run the backend server:
 
    ```bash
    mvn spring-boot:run
