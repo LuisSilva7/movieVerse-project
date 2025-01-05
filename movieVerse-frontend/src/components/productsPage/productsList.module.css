@@ -142,6 +142,10 @@
   font-weight: bold;
 }
 
+.sort-by-label {
+  display: inline;
+}
+
 @media (max-width: 1700px) {
   .filter-words {
     column-gap: 8rem;
@@ -200,6 +204,21 @@
 
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 550px) {
+  .filter-words {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    width: 90%;
+    padding: 0.5rem;
+    justify-content: center;
+  }
+
+  .sort-by-label {
+    display: none;
   }
 }
 

@@ -22,25 +22,25 @@ services:
       - "1080:1080"
       - "1025:1025"
 
-  movieverse-backend-project:
-    container_name: movieverse-backend-project
-    image: movieverse-backend-project
-    ports:
-      - 8888:8888
-    networks:
-      - movieVerse-net
-    depends_on:
-      - mysql
+  #movieverse-backend-project:
+  #  container_name: movieverse-backend-project
+  #  image: movieverse-backend-project
+  #  ports:
+  #    - 8888:8888
+  #  networks:
+  #    - movieVerse-net
+  #  depends_on:
+  #    - mysql
 
-  movieverse-frontend-project:
-    container_name: movieverse-frontend-project
-    image: movieverse-frontend-project
-    ports:
-      - 5000:80
-    networks:
-      - movieVerse-net
-    depends_on:
-      - movieverse-backend-project
+  #movieverse-frontend-project:
+  #  container_name: movieverse-frontend-project
+  #  image: movieverse-frontend-project
+  #  ports:
+  #    - 5000:80
+  #  networks:
+  #    - movieVerse-net
+  #  depends_on:
+  #    - movieverse-backend-project*/
 
 networks:
   movieVerse-net:

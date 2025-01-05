@@ -67,6 +67,53 @@
   color: rgb(104, 165, 193);
 }
 
+/* Responsividade para telas de 600px ou menores */
+@media (max-width: 600px) {
+  .product-wrapper {
+    padding-left: 1rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-wrapper img {
+    height: 300px;
+    width: 200px;
+    margin-right: 0;
+  }
+
+  .movie-info {
+    max-width: 100%;
+    text-align: center;
+    height: auto;
+  }
+
+  .movie-info h1 {
+    font-size: 1.8rem;
+  }
+
+  .movie-info p {
+    font-size: 0.9rem;
+    margin: 8px 0;
+  }
+
+  .info-bottom-section {
+    position: relative;
+    justify-content: center;
+    margin-top: 10px;
+    column-gap: 0.5rem;
+  }
+
+  .info-bottom-section p {
+    font-size: 1rem;
+  }
+
+  .info-bottom-section button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Manter outros ajustes responsivos como estão */
 @media (max-width: 1500px) {
   .product-wrapper {
     padding-left: 15rem;

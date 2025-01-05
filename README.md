@@ -55,25 +55,31 @@ MovieVerse aims to make purchasing movies online easier and more enjoyable. By p
    cd movieVerse-project/movieVerse-backend
    ```
 
-3. **Install project dependencies:**
+3. **Run MySQL container:**
+
+   ```bash
+   docker compose up -d
+   ```
+
+4. **Install project dependencies:**
 
    ```bash
    mvn spring-boot:run
    ```
 
-4. **Navigate to the project frontend directory:**
+5. **Navigate to the project frontend directory:**
 
    ```bash
    cd movieVerse-project/movieVerse-frontend
    ```
 
-5. **Install project dependencies:**
+6. **Install project dependencies:**
 
    ```bash
    npm install
    ```
 
-6. **Start the development server:**
+7. **Start the development server:**
    ```bash
    npm run dev
    ```
