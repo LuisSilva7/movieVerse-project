@@ -7,7 +7,7 @@ MovieVerse is an e-commerce platform designed for online movie shopping. It prov
 - **User Authentication**: Users can log in and log out of their accounts, providing access to purchasing features.
 - **Home Page with Popular Movies**: Users are greeted with a curated list of popular movies.
 - **Pagination for All Movies**: Browse through a vast collection of movies with easy pagination.
-- **Filter by Price**: Users can filter movies based on their price, selecting either the highest to lowest or the lowest to highest prices for an optimized shopping experience.
+- **Filter by Price**: Users can filter movies based on their price, selecting either the highest to lowest or the lowest to highest prices.
 - **Filter by Movie Genre**: Users can filter movies by genre, allowing them to find movies that suit their tastes.
 - **Movie Detail Page**: Clicking on a movie reveals detailed information, including description, price, rating, and more.
 - **Suggested Movies**: After opening a specific movie, users are shown suggested films based on the same category.
