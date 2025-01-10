@@ -1,5 +1,5 @@
 .header-wrapper {
-  background-color: rgb(14, 14, 14, 0);
+  background-color: #12121200;
   padding: 0 50px;
   transition: all 0.5s ease;
 
@@ -15,7 +15,7 @@
 }
 
 .header-wrapper-scrolled {
-  background-color: rgb(14, 14, 14);
+  background-color: #121212;
   padding: 0 50px;
   transition: all 0.5s ease;
 
